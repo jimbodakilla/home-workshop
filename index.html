@@ -6,17 +6,21 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Workshop">
 <meta name="theme-color" content="#F3F6F2">
+<meta name="description" content="A small daily workshop for a young child: read, build, explain and play with numbers.">
+<meta name="robots" content="noindex">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='6' y='6' width='52' height='52' rx='14' fill='%232FB8A6' stroke='%2314221E' stroke-width='4'/%3E%3Ccircle cx='24' cy='30' r='7' fill='white' stroke='%2314221E' stroke-width='3'/%3E%3Ccircle cx='42' cy='30' r='7' fill='white' stroke='%2314221E' stroke-width='3'/%3E%3Cpath d='M22 43q10 8 20 0' fill='none' stroke='%2314221E' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
 <title>Home Workshop</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&display=swap">
 <style>
-/* Layout: a sticker-book workshop. A robot helper greets him, four illustrated
-   stations sit in a 2x2 grid, and every station is pick-one-of-three, then one
-   how-to with one big button. Chunky outlines and hard offset shadows make every
-   target look pressable. Grown-up tools hide behind a press-and-hold gate. */
+/* Layout: a sticker-book workshop. A robot helper greets the child, four
+   illustrated stations sit in a 2x2 grid, and every station is pick-one-of-three,
+   then one how-to with one big button. Chunky outlines and hard offset shadows
+   make every target look pressable. Grown-up tools hide behind a press-and-hold gate. */
 :root{
   --bg:#F3F6F2; --card:#FFFFFF; --sunk:#E5EBE6;
-  --ink:#14221E; --ink2:#43524C; --ink3:#66746E; --line:#D3DCD7;
+  --ink:#14221E; --ink2:#43524C; --ink3:#55635D; --line:#D3DCD7;
   --edge:#14221E; --sh:#14221E;
   --btn:#1B5E52; --btn-ink:#FFFFFF;
   --star:#F2B600; --star-line:#14221E;
@@ -56,22 +60,25 @@ body{background:var(--bg);color:var(--ink);font-family:var(--ff-b);font-size:18p
   -webkit-text-size-adjust:100%}
 .app{max-width:760px;margin:0 auto;padding-inline:18px;padding-block:22px 60px}
 h1,h2,h3{font-family:var(--ff-d);margin:0;text-wrap:balance;letter-spacing:-.015em}
+h1:focus,h2:focus{outline:none}
 h2{font-size:clamp(28px,6.5vw,38px);font-weight:800;line-height:1.08}
 h3{font-size:22px;font-weight:600;line-height:1.2}
 p{margin:0 0 12px}
-button{font-family:inherit;font-size:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+button{font-family:inherit;font-size:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;-webkit-touch-callout:none}
 :focus-visible{outline:3px solid var(--btn);outline-offset:3px;border-radius:10px}
-.sr{position:absolute;left:-9999px}
+.sr{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 svg{display:block}
 
-/* sticker = anything he can press */
+/* sticker = anything the child can press */
 .sticker{border:3px solid var(--edge);box-shadow:0 6px 0 var(--sh);border-radius:22px;
   transition:transform .08s,box-shadow .08s}
 .sticker:active{transform:translateY(4px);box-shadow:0 2px 0 var(--sh)}
 
 /* ---- helper + speech bubble ---- */
 .hello{display:flex;gap:14px;align-items:center}
-.hello .mas{flex:none}
+.hello .mas{flex:none;display:flex;flex-direction:column;align-items:center}
+.nametag{font-family:var(--ff-d);font-weight:600;font-size:16px;color:var(--ink2);margin-top:2px}
 .bubble{position:relative;flex:1 1 auto;min-width:0;background:var(--card);border:3px solid var(--edge);
   border-radius:22px;padding:14px 18px;box-shadow:0 5px 0 var(--sh);
   font-family:var(--ff-d);font-weight:600;font-size:clamp(20px,4.6vw,26px);line-height:1.25}
@@ -80,8 +87,10 @@ svg{display:block}
 .topbar{display:flex;justify-content:flex-end;margin-bottom:6px}
 .mini{background:none;border:0;color:var(--ink3);font-size:15px;padding:8px 10px;min-height:44px;
   display:inline-flex;gap:6px;align-items:center}
+.warn{margin-top:14px;padding:12px 14px;border-radius:14px;background:var(--build-w);border:2.5px solid var(--build);
+  font-size:16px;color:var(--ink)}
 
-/* ---- chest + week ---- */
+/* ---- chest + treasure ---- */
 .week{margin-top:22px;display:flex;gap:16px;align-items:center;padding:16px 18px;background:var(--card)}
 .week .tx{flex:1;min-width:0}
 .week b{font-family:var(--ff-d);font-weight:600;font-size:20px;display:block;line-height:1.2}
@@ -121,6 +130,8 @@ svg{display:block}
   font-size:17px;color:var(--ink)}
 .chip[aria-pressed="true"]{background:var(--btn);color:var(--btn-ink)}
 .chip.static{background:var(--read-w);border-color:var(--read);min-height:0;padding:5px 14px}
+.chip.rm{display:inline-flex;align-items:center;gap:8px;background:var(--read-w);border-color:var(--read);min-height:44px;padding:4px 8px 4px 14px;font-size:16px}
+.chip.rm b{font-weight:700;font-size:20px;line-height:1;padding:0 6px}
 
 /* ---- station screen ---- */
 .back{background:none;border:0;color:var(--ink2);padding:10px 4px;min-height:46px;font-size:18px}
@@ -138,6 +149,8 @@ svg{display:block}
   background:var(--c);color:var(--bg);font-family:var(--ff-d);font-weight:800;font-size:19px;
   display:flex;align-items:center;justify-content:center}
 .need{margin-top:8px;color:var(--ink2);font-size:17px}
+.twist{margin:12px 0 0;color:var(--ink2);font-size:17px}
+.twist b{color:var(--ink)}
 .stretch{margin-top:14px;padding:12px 16px;border-radius:14px;background:var(--card);border:2.5px dashed var(--edge);font-size:18px}
 .btn{font-family:var(--ff-d);font-weight:800;font-size:24px;padding:16px 30px;min-height:64px;border-radius:99px;
   background:var(--btn);color:var(--btn-ink);border:3px solid var(--edge);box-shadow:0 6px 0 var(--sh)}
@@ -172,6 +185,7 @@ svg{display:block}
 .g li{margin-bottom:6px}
 .note{padding:14px 16px;border-radius:14px;background:var(--sunk);font-size:16px;color:var(--ink2);margin-top:14px}
 .note b{color:var(--ink)}
+.note.ok{background:var(--explain-w);border:2.5px solid var(--explain);color:var(--ink)}
 .field{display:flex;flex-direction:column;gap:5px;margin-top:14px;font-size:15.5px;color:var(--ink2)}
 .field input,.field textarea{font-family:inherit;font-size:17px;padding:10px 12px;border-radius:10px;
   border:1.5px solid var(--line);background:var(--card);color:var(--ink);min-height:46px;width:100%}
@@ -207,15 +221,33 @@ svg{display:block}
 </div>
 
 <script>
-/* ---------- storage that cannot throw ---------- */
+/* ---------- saved data: survives a browser that will not save ---------- */
+var KEYS={welcomed:false,child:"",name:"",interest:"",parent:"",maths:"",evalDate:"",reward:"Weekend treat",
+          goal:12,mute:false,days:{},words:[],samples:[],claimed:0};
+var MEM={},storageOK=true;
+try{localStorage.setItem("lw__t","1");localStorage.removeItem("lw__t");}catch(e){storageOK=false;}
+/* data of the wrong shape falls back to the default instead of crashing the page */
+function fit(v,d){
+  if(Array.isArray(d))return Array.isArray(v)?v:d;
+  if(d!==null&&typeof d==="object")return (v&&typeof v==="object"&&!Array.isArray(v))?v:d;
+  if(typeof d==="number")return (typeof v==="number"&&isFinite(v))?v:d;
+  if(typeof d==="string")return typeof v==="string"?v:d;
+  if(typeof d==="boolean")return typeof v==="boolean"?v:d;
+  return v;
+}
 var store={
-  get:function(k,d){try{var v=localStorage.getItem("lw_"+k);return v===null?d:JSON.parse(v);}catch(e){return d;}},
-  set:function(k,v){try{localStorage.setItem("lw_"+k,JSON.stringify(v));}catch(e){}}
+  get:function(k,d){
+    var v;
+    if(k in MEM)v=MEM[k];
+    else{try{var r=localStorage.getItem("lw_"+k);v=r===null?d:JSON.parse(r);}catch(e){storageOK=false;v=d;}}
+    return fit(v,d);
+  },
+  set:function(k,v){MEM[k]=v;try{localStorage.setItem("lw_"+k,JSON.stringify(v));}catch(e){storageOK=false;}}
 };
 function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
 function pad(n){return (n<10?"0":"")+n;}
 function todayKey(){var d=new Date();return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());}
-function dayNum(key){var p=key.split("-").map(Number);return Math.floor(Date.UTC(p[0],p[1]-1,p[2])/864e5);}
+function dayNum(key){var p=String(key).split("-").map(Number);return Math.floor(Date.UTC(p[0],p[1]-1,p[2])/864e5);}
 function keyOf(n){var d=new Date(n*864e5);return d.getUTCFullYear()+"-"+pad(d.getUTCMonth()+1)+"-"+pad(d.getUTCDate());}
 function dlabel(n){return new Date(n*864e5).toLocaleDateString("en-US",{weekday:"short",month:"short",day:"numeric",timeZone:"UTC"});}
 function helper(){return store.get("name","")||"Bolt";}
@@ -238,10 +270,10 @@ function speakerSvg(){return '<svg width="22" height="22" viewBox="0 0 24 24" ar
 function diceSvg(){return '<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4" fill="none" stroke="currentColor" stroke-width="2.2"/><g fill="currentColor"><circle cx="8.5" cy="8.5" r="1.7"/><circle cx="15.5" cy="15.5" r="1.7"/><circle cx="15.5" cy="8.5" r="1.7"/><circle cx="8.5" cy="15.5" r="1.7"/></g></svg>';}
 function chestSvg(open){
   var star=open?'<path d="M32 2l3 6 6.6.9-4.8 4.7 1.1 6.6L32 17l-5.9 3.2 1.1-6.6-4.8-4.7L29 8z" fill="#FFD23F" '+LN+'/>':'';
-  var lid=open?'<path d="M8 30L12 17Q32 10 52 17L56 30z" fill="#E3A857" '+LN+'/>':'<path d="M8 32Q8 17 32 17Q56 17 56 32z" fill="#E3A857" '+LN+'/>';
+  var lid=open?'<path d="M10 26L6 8Q32 0 58 8L54 26z" fill="#E3A857" '+LN+'/>':'<path d="M8 32Q8 17 32 17Q56 17 56 32z" fill="#E3A857" '+LN+'/>';
   return '<svg viewBox="0 0 64 64" width="72" height="72" aria-hidden="true">'+star+'<rect x="8" y="32" width="48" height="24" rx="4" fill="#C98A3B" '+LN+'/>'+lid+'<rect x="27" y="29" width="10" height="13" rx="2" fill="#F5D36B" '+LN+'/></svg>';
 }
-/* the helper: a round robot with goggles and a bulb that lights up when he does well */
+/* the helper: a round robot with goggles and a bulb that lights up when things go well */
 function mascot(mood,px){
   var T="#2FB8A6",bulb=mood==="cheer"?"#FFD84A":"#E4EAEC",eyes,mouth,arms;
   var up=mood==="cheer";
@@ -273,7 +305,7 @@ function mascot(mood,px){
 }
 
 /* ---------- what is on offer ---------- */
-/* Everything here is ordinary reading, play, building and maths. There are no
+/* Everything here is ordinary reading, play, building and math. There are no
    test-style questions on purpose: drilling the content of a formal assessment
    can undermine it. */
 var ST=[
@@ -289,7 +321,15 @@ var ST=[
   {t:"Your turn to read",s:["Read a page of an easy book out loud to a grown-up.","Do the voices. The more dramatic, the better."]},
   {t:"Story and facts",s:["Pick a story and a fact book about the same thing, like sharks or trains.","What does the fact book tell you that the story did not?"]},
   {t:"Tell it back",s:["After a chapter, tell the story back like you are telling a friend who has never heard it.","Start with who and where, then what went wrong."]},
-  {t:"New ending",s:["Read to the last page but stop before the ending.","Make up your own ending, then read the real one. Which do you like better?"]}
+  {t:"New ending",s:["Read to the last page but stop before the ending.","Make up your own ending, then read the real one. Which do you like better?"]},
+  {t:"Picture walk",s:["Look at the cover and the pictures before you read. Say what you think the book is about.","Now read it. Were you right?"]},
+  {t:"Interview a character",s:["Pick a character from your book. Ask them three questions.","Answer the way that character would."]},
+  {t:"Book detective",s:["Look through the pictures in a book.","Find three things in the pictures that the words never mention. Show a grown-up."]},
+  {t:"Read and draw",s:["Read a short chapter or a few pages.","Draw a comic strip with three boxes: beginning, middle and end."],n:"Paper and pencil"},
+  {t:"Rhyme time",s:["Read a poem or a rhyming book.","Find all the rhyming words. Can you think of one more for each pair?"]},
+  {t:"Newspaper hunt",s:["Look through a kids' magazine or news site with a grown-up.","Find a headline that makes you curious, then read that story."]},
+  {t:"Reading buddy",s:["Read a few pages to a stuffed animal or a pet.","Stop and tell them what a hard word means."]},
+  {t:"Surprising choices",s:["Find a part of your book where a character does something surprising.","Why do you think they did it? Tell a grown-up your idea."]}
  ]},
  {id:"build",name:"Build",tag:"Make something with your hands",mins:10,c:"build",
   builds:"Spatial thinking, planning, testing ideas and persistence.",
@@ -302,15 +342,26 @@ var ST=[
   {t:"Treasure map",s:["Draw a map of your room as if you were a bird looking down.","Hide a treasure, then write the steps for a grown-up to find it."],n:"Paper and pencil"},
   {t:"Maze maker",s:["Draw a maze on paper with one way in and one way out.","Add a dead end that will fool a grown-up. Then watch them try."],n:"Paper and pencil"},
   {t:"Build and check",s:["Pick a picture of something to build with Lego or blocks.","Build it, then look for one thing that is different from the picture."],n:"Lego or blocks"},
-  {t:"Game time",s:["Play checkers, chess, Connect 4 or Rush Hour with a grown-up.","Before each move, say what you think they will do next."]},
+  {t:"Game time",s:["Play checkers, chess or Connect 4 with a grown-up.","Before each move, say what you think they will do next."]},
+  {t:"Puzzle time",s:["Do a jigsaw, a Rush Hour card or a maze book.","Say your plan out loud before you make your first move."]},
   {t:"Paper boat",s:["Fold a paper boat and float it in the sink.","Change one thing, like the size or the shape, and test again."],n:"Paper and a sink"},
-  {t:"Chain reaction",s:["Line up dominoes, books or marbles so each one starts the next.","Make a chain with at least five steps. Can you add a turn?"]}
+  {t:"Chain reaction",s:["Line up dominoes, books or marbles so each one starts the next.","Make a chain with at least five steps. Can you add a turn?"]},
+  {t:"Marble run",s:["Build a ramp from cardboard tubes, books or folded paper so a marble rolls all the way down.","Make it turn a corner."],n:"A marble, tubes or paper, tape"},
+  {t:"Paper plane test",s:["Fold two different paper planes.","Throw each one three times and see where it lands. Which flew farther?"],n:"Two sheets of paper"},
+  {t:"Fort builder",s:["Plan your door first, then build a fort big enough to sit in.","Use blankets, cushions and chairs. Test that it stays up."],n:"Blankets, cushions, chairs"},
+  {t:"Clay creature",s:["Make an animal from clay or play-dough that could really live somewhere.","Where does it live, and what does it eat?"],n:"Clay or play-dough"},
+  {t:"Cardboard city",s:["Fold and tape cardboard boxes into buildings. A grown-up helps with any cutting.","Line them up to make a street."],n:"Boxes, tape, a grown-up for scissors"},
+  {t:"Shadow play",s:["Shine a flashlight at a wall and make shapes with your hands.","Move closer and farther away. What happens to the shadow?"],n:"A flashlight"},
+  {t:"Straw shapes",s:["Build a triangle and a square from straws and tape or clay.","Push on each one. Which shape is stronger?"],n:"Straws and tape or clay"},
+  {t:"Spaghetti tower",s:["Build the tallest tower you can with 20 sticks of dry spaghetti and 10 marshmallows.","Measure it, then try to beat your own height."],n:"Dry spaghetti and marshmallows"},
+  {t:"Float or sink?",s:["Collect 8 small things. Guess which will float, then test each one in a bowl of water.","Were you surprised by any?"],n:"A bowl of water, small objects"}
  ]},
  {id:"explain",name:"Explain",tag:"Find out, then teach it back",mins:10,c:"explain",
   builds:"General knowledge, curiosity, and putting an idea into your own words.",
   tip:"Be a genuinely curious student. Get one thing wrong on purpose and let them correct you.",
   stretch:["Add one thing that nobody in your family knows yet.","Make up a question about it for a grown-up to answer.","Find out why it matters.","Teach it to someone younger."],
-  topics:["How magnets work","Why we have day and night","How planes stay up","What bees do all day","Where rain comes from","What a volcano is","How a seed becomes a plant","How your heart works","Why ice melts","What lives deep in the ocean","How a bridge stays up","Where electricity comes from"]},
+  topics:["How magnets work","Why we have day and night","How planes stay up","What bees do all day","Where rain comes from","What a volcano is","How a seed becomes a plant","How your heart works","Why ice melts","What lives deep in the ocean","How a bridge stays up","Where electricity comes from",
+          "Why the moon changes shape","How a rainbow forms","How fish breathe underwater","Why we need sleep","How a boat floats","How spiders make webs","What is inside the Earth","How a plant drinks water","Why leaves change color","What makes thunder","How birds know where to fly","How a camera works"]},
  {id:"nums",name:"Numbers",tag:"Number play you can touch",mins:10,c:"nums",
   builds:"Number sense, multiplication ideas, fractions and measuring, all with objects.",
   tip:"Use real things first, then pencil. Ask how they know, and accept any method that works.",
@@ -325,11 +376,20 @@ var ST=[
   {t:"Fair shares",s:["Share 14 crackers between 2 people. Then share 15.","What happens to the extra one? What would you do with it?"],n:"Crackers or coins"},
   {t:"Skip-count bounce",s:["Bounce a ball and count by 2s to 100.","Now try 5s, then 10s."],n:"A ball"},
   {t:"Rectangle maker",s:["Put 12 coins in rows to make a rectangle.","How many different rectangles can you make with 12? Try 16."],n:"12 to 16 coins"},
-  {t:"Math app",s:["Open the math app you like and do one mission.","Tell a grown-up one thing you figured out."]}
+  {t:"Math app",s:["Open the math app you like and do a few problems.","Tell a grown-up one thing you figured out."]},
+  {t:"Doubling game",s:["Start with 1 coin. Double it to 2, then 4, then 8.","How far can you go before you pass 100?"],n:"Coins or paper and pencil"},
+  {t:"Number line walk",s:["Make a number line from 0 to 20 on the floor with tape.","Start at 5. Jump forward 7, then back 3. Where do you land?"],n:"Masking tape"},
+  {t:"Clock detective",s:["Look at a real clock and tell a grown-up the time.","Guess what time it will be in 30 minutes. Check when the time comes."],n:"A clock with hands"},
+  {t:"Pattern maker",s:["Make a pattern with blocks, like red, red, blue, red, red, blue.","What color is the 10th block? Find out without building all ten."],n:"Blocks or colored paper"},
+  {t:"Guess my number",s:["Think of a number from 1 to 100. A grown-up asks yes or no questions to find it.","How few questions can they use? Hint: ask if it is bigger than 50."]},
+  {t:"Pizza slices",s:["Draw a pizza as a circle. Cut it into 2, then 4, then 8 equal slices.","If you eat 3 of the 8, how much is left?"],n:"Paper and pencil"},
+  {t:"Thermometer",s:["Read the thermometer inside and outside. Write both numbers.","Which is bigger? By how many degrees?"],n:"A thermometer"},
+  {t:"Coin jar",s:["Sort the coins from a jar into piles of 10 cents.","Count up the piles. How much is in the jar?"],n:"A jar of coins"}
  ]}
 ];
 ST[2].bank=ST[2].topics.map(function(t){return {t:t,s:["Find out about this with a grown-up, a book or a short video.","Draw a picture of it. Then teach it back in three sentences."]};});
 var WIGGLES=["Do 10 star jumps.","Walk like a robot to the kitchen and back.","Freeze dance for 20 seconds.","Stand like a tree and count slowly to 10.","Spin around 3 times, then freeze.","Stretch up like a cat, then down like a dog.","Hop on one foot, then the other, 8 times each.","Be a rocket: crouch, count down from 5, then blast off."];
+var TWISTS=["Do it somewhere new today, like on the floor, in a fort or outside.","Pretend you are a scientist on TV explaining it to the camera.","Do it standing up the whole time.","Let a stuffed animal watch and cheer.","Talk in a robot voice while you work.","Pretend {h} is watching and cheering you on.","Race yourself: do the first step, then do it again faster.","Do it under a table or in a blanket fort.","Add one thing nobody has tried before.","Teach the first step to someone before you start.","Use your other hand for the first step.","Take a photo or draw a picture of the finished thing."];
 var CHIPS_NAME=["Bolt","Sparky","Gizmo","Nova","Pixel"];
 var CHIPS_LIKE=["Dinosaurs","Space","Minecraft","Sharks","Trains","Robots","Soccer","Superheroes"];
 
@@ -340,32 +400,55 @@ function custom(id,it){
   if(id==="explain")return {t:"Teach it: "+it,s:["Pick one thing about "+it+" that you want to find out.","Find out with a grown-up, then draw it and teach it back."]};
   return {t:"Number stories: "+it,s:["Make up a number story about "+it+" that needs two steps to solve.","A grown-up solves it. Check their answer."]};
 }
+/* a seeded shuffle per cycle: every activity appears once per cycle, in a different
+   order each time, so the same three choices never come back day after day */
+function rng(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;var t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+function perm(n,seed){var a=[],i,r=rng(seed);for(i=0;i<n;i++)a.push(i);for(i=n-1;i>0;i--){var j=Math.floor(r()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}return a;}
 function choices(si,key){
-  var s=ST[si],bank=s.bank,n=bank.length,base=(dayNum(key)*3+si*5)%n,out=[],j;
-  for(j=0;j<3;j++)out.push(bank[(base+j)%n]);
+  var s=ST[si],bank=s.bank,n=bank.length,per=Math.ceil(n/3),dn=dayNum(key),cyc=Math.floor(dn/per),j=dn-cyc*per,
+      p=perm(n,cyc*7919+si*104729+13),out=[],t;
+  for(t=0;t<3;t++)out.push(bank[p[(j*3+t)%n]]);
   var it=store.get("interest","");
-  if(it&&dayNum(key)%2===0)out[0]=custom(s.id,it);
+  if(it&&dn%2===0){
+    var c=custom(s.id,it),idx=-1,i;
+    for(i=0;i<out.length;i++)if(c.t.indexOf(out[i].t)===0){idx=i;break;}
+    out[idx<0?0:idx]=c;
+  }
   return out;
 }
+function twistFor(si,key){return TWISTS[(dayNum(key)+si*5)%TWISTS.length].replace("{h}",helper());}
 
 /* ---------- state ---------- */
 function days(){return store.get("days",{});}
-function doneOn(key,id){var d=days()[key];return d&&d[id]?d[id]:null;}
-function countOn(key){var d=days()[key]||{},n=0;ST.forEach(function(s){if(d[s.id])n++;});return n;}
+function doneOn(key,id){var d=days()[key],v=d&&typeof d==="object"?d[id]:null;return v?{t:String((v&&v.t)||"Done")}:null;}
+function countOn(key){var n=0;ST.forEach(function(s){if(doneOn(key,s.id))n++;});return n;}
 function easy(){
   var ev=store.get("evalDate","");
-  if(!ev)return {easy:false,rest:false};
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(ev))return {easy:false,rest:false};
   var left=dayNum(ev)-dayNum(todayKey());
   return {easy:left>=0&&left<=7,rest:left>=0&&left<=1};
 }
-function weekStars(){var t=dayNum(todayKey()),n=0,i;for(i=0;i<7;i++)n+=countOn(keyOf(t-i));return n;}
+function dayComplete(){var k=todayKey();return easy().easy?!!doneOn(k,"read"):countOn(k)>=3;}
+/* stars count toward the treasure until a grown-up hands it over, so it is never taken back */
+function totalStars(){var all=days(),n=0,k;for(k in all)n+=countOn(k);return n;}
+function treasureStars(){return Math.max(0,totalStars()-store.get("claimed",0));}
+function goalStars(){var g=store.get("goal",12);return Math.max(3,Math.min(28,Math.round(g)));}
 
 /* ---------- sound, speech, confetti ---------- */
 var AC=null;
+function unlockAudio(){
+  try{
+    AC=AC||new (window.AudioContext||window.webkitAudioContext)();
+    if(AC.state==="suspended"&&AC.resume)AC.resume();
+  }catch(e){}
+}
+/* iPad keeps audio locked until a tap, so unlock on the first one */
+document.addEventListener("pointerdown",unlockAudio,{passive:true});
+document.addEventListener("click",unlockAudio,{passive:true});
 function chime(){
   if(store.get("mute",false))return;
   try{
-    AC=AC||new (window.AudioContext||window.webkitAudioContext)();
+    unlockAudio();if(!AC)return;
     var t=AC.currentTime;
     [[660,0],[880,.12],[1175,.24]].forEach(function(n){
       var o=AC.createOscillator(),g=AC.createGain();
@@ -382,11 +465,11 @@ function say(text){
   try{speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(text);u.rate=.95;speechSynthesis.speak(u);}catch(e){}
 }
 function quiet(){if(canSpeak){try{speechSynthesis.cancel();}catch(e){}}}
-function burst(){
+function burst(count){
   try{if(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches)return;}catch(e){}
   var box=document.createElement("div"),cols=["#F28B6B","#F7B955","#8FD3B6","#8FB6F0","#C6A4F0"],i;
   box.className="confetti";
-  for(i=0;i<30;i++){
+  for(i=0;i<(count||30);i++){
     var p=document.createElement("i");
     p.style.left=(8+Math.random()*84)+"%";p.style.background=cols[i%5];
     p.style.animationDelay=(Math.random()*.3)+"s";p.style.setProperty("--dx",(Math.random()*180-90)+"px");
@@ -396,9 +479,9 @@ function burst(){
   setTimeout(function(){if(box.parentNode)box.parentNode.removeChild(box);},2400);
 }
 
-/* ---------- visual timer (opt-in, never a countdown he can fail) ---------- */
-var timer={h:null,left:0,total:0};
-function stopTimer(){if(timer.h){clearInterval(timer.h);timer.h=null;}timer.left=0;timer.total=0;}
+/* ---------- visual timer: opt-in, based on the clock so a sleeping iPad cannot skew it ---------- */
+var timer={h:null,end:0,total:0,left:0};
+function stopTimer(){if(timer.h){clearInterval(timer.h);timer.h=null;}timer.left=0;timer.total=0;timer.end=0;}
 function paintTimer(){
   var box=document.getElementById("timerBox");if(!box)return;
   if(!timer.total){box.innerHTML="";return;}
@@ -408,36 +491,39 @@ function paintTimer(){
     '<div><div class="t">'+(timer.left>0?m+":"+pad(s):"Time!")+'</div><div style="color:var(--ink2);font-size:16px">'+
     (timer.left>0?"Just a way to see the time.":"Keep going if you are having fun.")+'</div></div></div>';
 }
+function tickTimer(){
+  timer.left=Math.max(0,Math.ceil((timer.end-Date.now())/1000));
+  if(timer.left<=0&&timer.h){clearInterval(timer.h);timer.h=null;chime();}
+  paintTimer();
+}
 function startTimer(min){
-  stopTimer();timer.total=timer.left=min*60;paintTimer();
-  timer.h=setInterval(function(){
-    timer.left--;
-    if(timer.left<=0){timer.left=0;clearInterval(timer.h);timer.h=null;chime();}
-    paintTimer();
-  },1000);
+  stopTimer();timer.total=min*60;timer.end=Date.now()+timer.total*1000;
+  tickTimer();timer.h=setInterval(tickTimer,1000);
 }
 
 /* ---------- views ---------- */
 var elHome=document.getElementById("home"),elSt=document.getElementById("station"),elG=document.getElementById("grown");
-var cur=0,chosen=null,justDone=false,showStretch=false,picks=null;
+var cur=0,chosen=null,justDone=false,justFinishedDay=false,showStretch=false,picks=null,justWelcomed=false,shownDay=todayKey();
+function focusTop(sel){var el=document.querySelector(sel);if(el){try{el.focus({preventScroll:true});}catch(e){}}}
 function show(v){
   elHome.hidden=v!=="home";elSt.hidden=v!=="station";elG.hidden=v!=="grown";
   window.scrollTo(0,0);
+  focusTop(v==="home"?"#hTop":v==="station"?"#sTop":"#gTop");
 }
 function goHome(){stopTimer();quiet();renderHome();show("home");}
 function greetingWord(){var h=new Date().getHours();return h<12?"Good morning":h<18?"Good afternoon":"Good evening";}
 
 function renderWelcome(){
-  var pickName="",pickLike="";
   elHome.innerHTML=
+   '<h1 class="sr" id="hTop" tabindex="-1">Home Workshop</h1>'+
    '<div class="hello"><div class="mas">'+mascot("idle",120)+'</div><div class="bubble">Hi there! I am your workshop helper. We are going to make cool things together.</div></div>'+
-   '<div class="welcome sticker">'+
-   '<label for="wMe">What is your name?</label><input type="text" id="wMe" maxlength="20" autocomplete="off" placeholder="Your name">'+
-   '<label for="wName">What should you call me?</label><input type="text" id="wName" maxlength="14" autocomplete="off" placeholder="Bolt">'+
+   '<form class="welcome sticker" id="wForm" autocomplete="off">'+
+   '<label for="wMe">What is your name?</label><input type="text" id="wMe" maxlength="20" placeholder="Your name" enterkeyhint="next">'+
+   '<label for="wName">What should you call me?</label><input type="text" id="wName" maxlength="14" placeholder="Bolt" enterkeyhint="next">'+
    '<div class="chips" id="cName">'+CHIPS_NAME.map(function(n){return '<button type="button" class="chip" aria-pressed="false">'+n+'</button>';}).join("")+'</div>'+
-   '<label for="wLike">What are you into right now?</label><input type="text" id="wLike" maxlength="24" autocomplete="off" placeholder="Anything you love">'+
+   '<label for="wLike">What are you into right now?</label><input type="text" id="wLike" maxlength="24" placeholder="Anything you love" enterkeyhint="go">'+
    '<div class="chips" id="cLike">'+CHIPS_LIKE.map(function(n){return '<button type="button" class="chip" aria-pressed="false">'+n+'</button>';}).join("")+'</div>'+
-   '<div class="row"><button class="btn" id="wGo" type="button">Let us go!</button><button class="link" id="wSkip" type="button">Skip for now</button></div></div>';
+   '<div class="row"><button class="btn" id="wGo" type="submit">Let us go!</button><button class="link" id="wSkip" type="button">Skip for now</button></div></form>';
   function chips(boxId,inputId){
     [].forEach.call(document.getElementById(boxId).querySelectorAll(".chip"),function(b){
       b.addEventListener("click",function(){
@@ -452,23 +538,25 @@ function renderWelcome(){
       var me=document.getElementById("wMe").value.trim(),n=document.getElementById("wName").value.trim(),l=document.getElementById("wLike").value.trim();
       if(me)store.set("child",me);if(n)store.set("name",n);if(l)store.set("interest",l);
     }
-    store.set("welcomed",true);renderHome();
+    store.set("welcomed",true);justWelcomed=true;renderHome();focusTop("#hTop");
   }
-  document.getElementById("wGo").addEventListener("click",function(){finish(true);});
+  document.getElementById("wForm").addEventListener("submit",function(ev){ev.preventDefault();finish(true);});
   document.getElementById("wSkip").addEventListener("click",function(){finish(false);});
 }
 
 function renderHome(){
+  shownDay=todayKey();
   if(!store.get("welcomed",false)){renderWelcome();return;}
-  var k=todayKey(),e=easy(),goal=e.easy?1:3,n=countOn(k);
-  var starsNow=weekStars(),tgt=store.get("goal",12),reward=store.get("reward","Weekend treat");
-  var finished=e.easy?!!doneOn(k,"read"):n>=goal;
-  var mood=e.rest?"sleepy":finished?"cheer":"idle";
-  var line=e.rest?"Big rest day. Some cozy reading, then go and play!":
-           finished?"That is a wrap! You did great today. Go and play!":
-           n===0?(e.easy?"Easy week! Just Read today. The rest is bonus.":greetingWord()+(store.get("child","")?", "+store.get("child",""):"")+"! Ready to make something?"):
-           n===1?"Star number one! Which one next?":"Nice work! One more and you are done for today.";
-  /* suggest one station so he never has to start from a blank choice */
+  var k=todayKey(),e=easy(),n=countOn(k),child=store.get("child","");
+  var starsNow=treasureStars(),tgt=goalStars(),reward=store.get("reward","Weekend treat"),earned=starsNow>=tgt;
+  var finished=dayComplete();
+  var mood=finished?"cheer":e.rest?"sleepy":"idle",line;
+  if(justWelcomed){line="Nice to meet you"+(child?", "+child:"")+"! I am "+helper()+". Pick a station to start!";justWelcomed=false;}
+  else if(finished)line=e.rest?"Rest day done. Now go and play!":"That is a wrap! You did great today. Go and play!";
+  else if(e.rest)line="Big rest day. Some cozy reading, then go and play!";
+  else if(e.easy)line=n===0?"Easy week! Just Read today. The rest is bonus.":"Nice! Read is the one that counts today.";
+  else line=n===0?greetingWord()+(child?", "+child:"")+"! Ready to make something?":n===1?"Star number one! Which one next?":"Nice work! One more and you are done for today.";
+  /* suggest one station so there is never a blank-page choice to make */
   var order=e.easy?[0,1,2,3]:[0,1,2,3].map(function(i){return (i+dayNum(k))%4;}),sug=-1;
   order.some(function(i){if(!doneOn(k,ST[i].id)){sug=i;return true;}return false;});
   var cards=ST.map(function(s,si){
@@ -480,28 +568,30 @@ function renderHome(){
       '<span class="mn">'+(d?'<span class="tick">'+tickSvg()+' Done</span>':(bonus?'Bonus, just for fun':s.mins+' minutes or so'))+'</span></span></button>';
   }).join("");
   elHome.innerHTML=
+   '<h1 class="sr" id="hTop" tabindex="-1">Home Workshop</h1>'+
    '<div class="topbar"><button class="mini" id="snd" type="button">'+speakerSvg()+'<span>Sound '+(store.get("mute",false)?"off":"on")+'</span></button></div>'+
-   '<div class="hello"><div class="mas">'+mascot(mood,128)+'</div><div class="bubble">'+esc(line)+'</div></div>'+
-   '<div class="week sticker"><div class="ico">'+chestSvg(starsNow>=tgt)+'</div><div class="tx"><b>'+(starsNow>=tgt?'Treasure earned: '+esc(reward):'Treasure: '+esc(reward))+'</b>'+
-   '<small>'+(starsNow>=tgt?'Tell a grown-up!':starsNow+' of '+tgt+' stars this week')+'</small>'+
-   '<div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="'+tgt+'" aria-valuenow="'+Math.min(starsNow,tgt)+'"><i style="transform:scaleX('+Math.min(1,starsNow/tgt).toFixed(3)+')"></i></div></div></div>'+
+   '<div class="hello"><div class="mas">'+mascot(mood,128)+'<div class="nametag">'+esc(helper())+'</div></div><div class="bubble">'+esc(line)+'</div></div>'+
+   (storageOK?'':'<div class="warn">This browser is not saving progress, so it will be lost when the page closes. A grown-up can fix this in the browser settings.</div>')+
+   '<div class="week sticker"><div class="ico">'+chestSvg(earned)+'</div><div class="tx"><b>'+(earned?'Treasure earned: ':'Treasure: ')+esc(reward)+'</b>'+
+   '<small>'+(earned?'Tell a grown-up!':starsNow+' of '+tgt+' stars')+'</small>'+
+   '<div class="bar" role="progressbar" aria-label="Stars toward the treasure" aria-valuemin="0" aria-valuemax="'+tgt+'" aria-valuenow="'+Math.min(starsNow,tgt)+'"><i style="transform:scaleX('+Math.min(1,starsNow/tgt).toFixed(3)+')"></i></div></div></div>'+
    '<div class="grid">'+cards+'</div>'+
    (finished?'<div class="endday sticker">Today is done. Go and play!</div>':'')+
    '<button class="gate" id="gate" type="button">for grown-ups</button>';
   [].forEach.call(elHome.querySelectorAll(".st"),function(b){
-    b.addEventListener("click",function(){cur=+b.getAttribute("data-s");chosen=null;justDone=false;showStretch=false;picks=null;renderStation();show("station");});
+    b.addEventListener("click",function(){cur=+b.getAttribute("data-s");chosen=null;justDone=false;justFinishedDay=false;showStretch=false;picks=null;renderStation(true);show("station");});
   });
   document.getElementById("snd").addEventListener("click",function(){store.set("mute",!store.get("mute",false));renderHome();});
   bindGate();
 }
 
-function renderStation(){
+function renderStation(noFocus){
   var s=ST[cur],k=todayKey(),d=doneOn(k,s.id),sty='style="--c:var(--'+s.c+');--w:var(--'+s.c+'-w)"',mood="think",line="Which one sounds fun?";
-  if(d){mood="cheer";line=justDone?"Star earned! You are on a roll!":"You already did this one today. Nice!";}
+  if(d){mood="cheer";line=justDone?(justFinishedDay?"That is the whole day! Amazing work. Go and play!":"Star earned! You are on a roll!"):"You already did this one today. Nice!";}
   else if(chosen){mood="idle";line="Ready when you are.";}
   var html='<div '+sty+'><button class="back" id="back" type="button">&larr; Back to the workshop</button>'+
-    '<div class="sthead"><span class="ic">'+iconSvg(s.id)+'</span><h2>'+s.name+'</h2></div>'+
-    '<div class="hello" style="margin-top:8px"><div class="mas">'+mascot(mood,92)+'</div><div class="bubble" style="font-size:clamp(18px,4.2vw,23px)">'+esc(line)+'</div></div>';
+    '<div class="sthead"><span class="ic">'+iconSvg(s.id)+'</span><h2 id="sTop" tabindex="-1">'+s.name+'</h2></div>'+
+    '<div class="hello" style="margin-top:8px"><div class="mas">'+mascot(mood,92)+'</div><div class="bubble" aria-live="polite" style="font-size:clamp(18px,4.2vw,23px)">'+esc(line)+'</div></div>';
   if(d){
     html+='<div class="earned sticker"><div class="big">'+starSvg(true)+'</div><h3>'+esc(d.t)+'</h3>'+
       (justDone?'<div class="wig"><b>Wiggle break?</b> '+esc(WIGGLES[(dayNum(k)+cur)%WIGGLES.length])+'</div>':'')+'</div>'+
@@ -516,6 +606,7 @@ function renderStation(){
     var it=chosen;
     html+='<div class="how sticker"><h3>'+esc(it.t)+'</h3><ol>'+it.s.map(function(x){return '<li>'+esc(x)+'</li>';}).join("")+'</ol>'+
       (it.n?'<p class="need">You will need: '+esc(it.n)+'</p>':'')+
+      '<p class="twist"><b>Twist, if you like:</b> '+esc(twistFor(cur,k))+'</p>'+
       (showStretch?'<div class="stretch"><b>Want a challenge?</b> '+esc(s.stretch[dayNum(k)%s.stretch.length])+'</div>':'')+'</div>'+
       '<div id="timerBox"></div>'+
       '<div class="row"><button class="btn" id="doneBtn" type="button">I did it!</button></div>'+
@@ -529,13 +620,14 @@ function renderStation(){
     var words=store.get("words",[]);
     html+='<div class="jar sticker"><h3>Your Word Jar</h3><p style="margin:6px 0 0;color:var(--ink2);font-size:17px">'+
       (words.length?words.length+(words.length===1?' word':' words')+' collected.':'Words you learn go in here.')+'</p>'+
-      '<form id="jarForm"><label class="sr" for="jarIn">A new word</label><input type="text" id="jarIn" maxlength="40" autocomplete="off" placeholder="A new word">'+
+      '<form id="jarForm"><label class="sr" for="jarIn">A new word</label><input type="text" id="jarIn" maxlength="40" autocomplete="off" placeholder="A new word" enterkeyhint="done">'+
       '<button class="btn sm" type="submit">Add it</button></form>'+
       '<div class="chips">'+words.slice(-40).reverse().map(function(w){return '<span class="chip static">'+esc(w.w)+'</span>';}).join("")+'</div></div>';
   }
   html+='</div>';
   elSt.innerHTML=html;
   paintTimer();
+  if(!noFocus&&!elSt.hidden)focusTop("#sTop");
   document.getElementById("back").addEventListener("click",goHome);
   var h2=document.getElementById("home2");if(h2)h2.addEventListener("click",goHome);
   [].forEach.call(elSt.querySelectorAll(".opt"),function(b){
@@ -550,11 +642,14 @@ function renderStation(){
   var tb=document.getElementById("timerBtn");
   if(tb)tb.addEventListener("click",function(){startTimer(s.mins);});
   var hd=document.getElementById("harder");
-  if(hd)hd.addEventListener("click",function(){showStretch=true;renderStation();});
+  if(hd)hd.addEventListener("click",function(){showStretch=true;renderStation(true);});
   var db=document.getElementById("doneBtn");
   if(db)db.addEventListener("click",function(){
-    var all=days();(all[k]=all[k]||{})[s.id]={t:chosen.t};store.set("days",all);
-    stopTimer();quiet();justDone=true;chime();burst();renderStation();window.scrollTo(0,0);
+    var before=dayComplete(),all=days();
+    if(!all[k]||typeof all[k]!=="object")all[k]={};
+    all[k][s.id]={t:chosen.t};store.set("days",all);
+    justFinishedDay=!before&&dayComplete();
+    stopTimer();quiet();justDone=true;chime();burst(justFinishedDay?70:30);renderStation();window.scrollTo(0,0);
   });
   var ot=document.getElementById("other");
   if(ot)ot.addEventListener("click",function(){chosen=null;stopTimer();quiet();renderStation();});
@@ -564,8 +659,8 @@ function renderStation(){
     var w=document.getElementById("jarIn").value.trim();
     if(!w)return;
     var list=store.get("words",[]);
-    if(!list.some(function(x){return x.w.toLowerCase()===w.toLowerCase();})){list.push({w:w,d:todayKey()});store.set("words",list);chime();}
-    renderStation();
+    if(!list.some(function(x){return x&&String(x.w).toLowerCase()===w.toLowerCase();})){list.push({w:w,d:todayKey()});store.set("words",list);chime();}
+    renderStation(true);
     var again=document.getElementById("jarIn");if(again)again.focus();
   });
 }
@@ -583,6 +678,17 @@ function bindGate(){
   g.addEventListener("keyup",stop);
 }
 
+/* ---------- a new morning while the page was left open ---------- */
+function refreshIfNewDay(){
+  if(todayKey()===shownDay)return;
+  shownDay=todayKey();
+  if(!elG.hidden)return;
+  stopTimer();quiet();cur=0;chosen=null;picks=null;renderHome();show("home");
+}
+document.addEventListener("visibilitychange",function(){if(!document.hidden)refreshIfNewDay();});
+window.addEventListener("focus",refreshIfNewDay);
+window.addEventListener("pageshow",refreshIfNewDay);
+
 /* ---------- grown-up view ---------- */
 function copyText(text,flash,fb){
   function ok(){flash.hidden=false;setTimeout(function(){flash.hidden=true;},2000);}
@@ -592,33 +698,46 @@ function copyText(text,flash,fb){
 }
 function teacherText(){
   var kid=store.get("child","")||"[child's name]",me=store.get("parent","")||"[your name]",m=store.get("maths","");
-  return "Subject: Above-grade-level work for "+kid+"\n\nHi [teacher's name],\n\n"+kid+" has been comfortable with grade-level maths"+(m?" ("+m+")":"")+
-    ". Over the next two to three weeks I would like to see how "+kid+" handles above-grade material in class, for example grade 3 maths and a higher reading level, if that is possible.\n\n"+
+  return "Subject: Above-grade-level work for "+kid+"\n\nHi [teacher's name],\n\n"+kid+" has been comfortable with grade-level math"+(m?" ("+m+")":"")+
+    ". Over the next two to three weeks I would like to see how "+kid+" handles above-grade material in class, for example grade 3 math and a higher reading level, if that is possible.\n\n"+
     "Could you also add a short note on each piece, such as how much help "+kid+" needed and how long it took? I will keep the samples together so we have a clear picture of where "+kid+" is.\n\nThank you,\n"+me;
+}
+function backupText(){var data={},k;for(k in KEYS)data[k]=store.get(k,KEYS[k]);return JSON.stringify({v:1,saved:todayKey(),data:data});}
+function restoreFrom(txt){
+  var o;try{o=JSON.parse(txt);}catch(e){return false;}
+  if(!o||o.v!==1||!o.data||typeof o.data!=="object")return false;
+  var k,n=0;
+  for(k in KEYS)if(k in o.data){store.set(k,fit(o.data[k],KEYS[k]));n++;}
+  return n>0;
 }
 
 function renderGrown(){
-  var t=dayNum(todayKey()),rows="",i;
+  var t=dayNum(todayKey()),rows="",i,k=todayKey(),tgt=goalStars(),starsNow=treasureStars();
   for(i=0;i<14;i++){
-    var key=keyOf(t-i),d=days()[key]||{};
+    var key=keyOf(t-i);
     rows+='<tr><td>'+dlabel(t-i)+'</td><td><div class="dots">'+ST.map(function(s){
-      return '<i class="'+(d[s.id]?'on ':'')+s.c+'" title="'+s.name+'"></i>';}).join("")+'</div></td><td>'+countOn(key)+' of 4</td></tr>';
+      return '<i class="'+(doneOn(key,s.id)?'on ':'')+s.c+'" title="'+s.name+'"></i>';}).join("")+'</div></td><td>'+countOn(key)+' of 4</td></tr>';
   }
   var builds=ST.map(function(s){return '<tr><td><b>'+s.name+'</b></td><td>'+esc(s.builds)+'<br><i>'+esc(s.tip)+'</i></td></tr>';}).join("");
-  var samples=store.get("samples",[]);
+  var samples=store.get("samples",[]),words=store.get("words",[]);
+  var todayDone=ST.filter(function(s){return doneOn(k,s.id);});
   elG.innerHTML=
    '<button class="back" id="gback" type="button">&larr; Back to the workshop</button>'+
-   '<h2>For grown-ups</h2>'+
-   '<div class="note"><b>This page has no test questions, on purpose.</b> Everything here is ordinary reading, vocabulary, knowledge, building and maths. Drilling the content of a formal assessment can undermine it, so the page does not do that.</div>'+
+   '<h2 id="gTop" tabindex="-1">For grown-ups</h2>'+
+   '<div class="note"><b>This page has no test questions, on purpose.</b> Everything here is ordinary reading, vocabulary, knowledge, building and math. Drilling the content of a formal assessment can undermine it, so the page does not do that.</div>'+
+   (storageOK?'':'<div class="note"><b>This browser is not saving anything.</b> Check that cookies and site data are allowed for this page, and that private browsing is off. Until then, progress only lasts while the page stays open.</div>')+
+   (starsNow>=tgt?'<div class="note ok"><b>The treasure is earned.</b> '+esc(store.get("reward","Weekend treat"))+'<div class="row" style="margin-top:12px"><button class="btn sm" id="giveT" type="button">I gave the treasure</button></div></div>':'')+
    '<h3>How to use it</h3><ul>'+
    '<li>About 45 to 60 minutes a day in blocks of 10 to 15 minutes. Read is the longest.</li>'+
    '<li>Let them choose. The choosing matters more than the activity.</li>'+
    '<li>Present it as projects with you. Do not mention a test.</li>'+
    '<li>Stop while it is going well. A missed day is fine, and the page never counts it against them.</li>'+
    '<li>If it starts to feel like quizzing, switch stations.</li>'+
-   '<li>Treasure is for showing up, not for how well it went.</li></ul>'+
+   '<li>Treasure is for showing up, not for how well it went. It stays earned until you hand it over.</li></ul>'+
    '<h3>What each station builds</h3><div class="tbl"><table><tbody>'+builds+'</tbody></table></div>'+
    '<h3>The last fortnight</h3><div class="tbl"><table><tbody>'+rows+'</tbody></table></div>'+
+   (todayDone.length?'<h3>Today</h3><p>Tapped something by mistake? Take the star back.</p><div class="row" style="margin-top:8px">'+
+     todayDone.map(function(s){return '<button class="btn sm alt" data-undo="'+s.id+'" type="button">Undo '+s.name+'</button>';}).join("")+'</div>':'')+
    '<h3>Settings</h3><div class="fields">'+
    '<label class="field">Child\'s name<input type="text" id="gChild" maxlength="20"></label>'+
    '<label class="field">Helper name<input type="text" id="gName" maxlength="14"></label>'+
@@ -627,9 +746,11 @@ function renderGrown(){
    '<label class="field">Weekly treasure<input type="text" id="reward" maxlength="40"></label>'+
    '<label class="field">Stars for the treasure (3 to 28)<input type="number" id="goal" min="3" max="28" inputmode="numeric"></label>'+
    '<label class="field">Your name, for the message below<input type="text" id="gMe" maxlength="24"></label>'+
-   '<label class="field">A maths result to mention, if you like<input type="text" id="gMath" maxlength="80" placeholder="e.g. was above the 80th percentile on the fall test"></label></div>'+
+   '<label class="field">A math result to mention, if you like<input type="text" id="gMath" maxlength="80" placeholder="e.g. was above the 80th percentile on the fall test"></label></div>'+
+   '<h3>Word Jar</h3>'+(words.length?'<p>Tap a word to take it out, for example after a typo.</p><div class="chips">'+words.map(function(w,wi){
+      return '<button class="chip rm" data-rmw="'+wi+'" type="button" aria-label="Remove '+esc(w.w)+'">'+esc(w.w)+' <b aria-hidden="true">&times;</b></button>';}).join("")+'</div>':'<p>No words yet.</p>')+
    '<h3>Work samples</h3><p>Dated work done on their own, with the teacher\'s note. A simple record of whether grade-level work is meeting their needs.</p>'+
-   '<label class="field">What he did<textarea id="sWhat" placeholder="Finished the grade 3 multiplication page in 15 minutes without help"></textarea></label>'+
+   '<label class="field">What they did<textarea id="sWhat" placeholder="Finished the grade 3 multiplication page in 15 minutes without help"></textarea></label>'+
    '<label class="field">Teacher\'s note, if there is one<input type="text" id="sNote" maxlength="200"></label>'+
    '<div class="row" style="margin-top:12px"><button class="btn sm" id="sAdd" type="button">Add sample</button>'+
    '<button class="btn sm alt" id="sCopy" type="button">Copy all samples</button><span class="said" id="sSaid" hidden>Copied</span></div>'+
@@ -637,18 +758,24 @@ function renderGrown(){
    '<div id="sList">'+(samples.length?samples.slice().reverse().map(function(s,ri){
       var idx=samples.length-1-ri;
       return '<div class="sample"><b>'+esc(s.d)+'</b><div>'+esc(s.w)+'</div>'+(s.n?'<div>Teacher: '+esc(s.n)+'</div>':'')+
-        '<button class="link" data-del="'+idx+'" type="button" style="padding:6px 0;min-height:36px;font-size:15px">Remove</button></div>';}).join(""):
+        '<button class="link" data-del="'+idx+'" type="button">Remove</button></div>';}).join(""):
       '<p style="margin-top:12px">Nothing yet.</p>')+'</div>'+
    '<h3>Ask the teacher for above-grade work</h3><p>Fill in the bracket and send it as it is, or change anything you like.</p>'+
    '<div class="letter" id="tLetter"></div>'+
    '<div class="row" style="margin-top:12px"><button class="btn sm" id="tCopy" type="button">Copy this message</button><span class="said" id="tSaid" hidden>Copied</span></div>'+
-   '<pre class="letter" id="tFb" hidden></pre>';
+   '<pre class="letter" id="tFb" hidden></pre>'+
+   '<h3>Back up and restore</h3><p>Everything is saved only in this browser. Back it up before clearing browser data, or to move it to another device. If you add this page to the Home Screen, set it up from the Home Screen icon, because that keeps its own separate storage. Use a backup to carry things across.</p>'+
+   '<div class="row" style="margin-top:12px"><button class="btn sm" id="bkCopy" type="button">Copy a backup</button><span class="said" id="bkSaid" hidden>Copied</span></div>'+
+   '<pre class="letter" id="bkFb" hidden></pre>'+
+   '<label class="field">Paste a backup here to restore it<textarea id="rsText"></textarea></label>'+
+   '<div class="row" style="margin-top:12px"><button class="btn sm alt" id="rsGo" type="button">Restore</button><span class="said" id="rsMsg" role="status"></span></div>';
   document.getElementById("tLetter").textContent=teacherText();
   var gChild=document.getElementById("gChild"),gMe=document.getElementById("gMe"),gMath=document.getElementById("gMath"),
       gName=document.getElementById("gName"),gLike=document.getElementById("gLike"),evDate=document.getElementById("evDate"),
       rw=document.getElementById("reward"),gl=document.getElementById("goal");
-  gChild.value=store.get("child","");gMe.value=store.get("parent","");gMath.value=store.get("maths","");gName.value=store.get("name","");gLike.value=store.get("interest","");evDate.value=store.get("evalDate","");
-  rw.value=store.get("reward","Weekend treat");gl.value=store.get("goal",12);
+  gChild.value=store.get("child","");gMe.value=store.get("parent","");gMath.value=store.get("maths","");gName.value=store.get("name","");
+  gLike.value=store.get("interest","");evDate.value=store.get("evalDate","");
+  rw.value=store.get("reward","Weekend treat");gl.value=goalStars();
   function paintLetter(){document.getElementById("tLetter").textContent=teacherText();}
   gName.addEventListener("input",function(){store.set("name",gName.value.trim());});
   gChild.addEventListener("input",function(){store.set("child",gChild.value.trim());paintLetter();});
@@ -657,8 +784,16 @@ function renderGrown(){
   gLike.addEventListener("input",function(){store.set("interest",gLike.value.trim());});
   evDate.addEventListener("change",function(){store.set("evalDate",evDate.value);});
   rw.addEventListener("input",function(){store.set("reward",rw.value||"Weekend treat");});
-  gl.addEventListener("change",function(){var v=parseInt(gl.value,10);if(!(v>=3&&v<=28))v=12;gl.value=v;store.set("goal",v);});
+  gl.addEventListener("change",function(){var v=parseInt(gl.value,10);if(isNaN(v))v=12;v=Math.max(3,Math.min(28,v));gl.value=v;store.set("goal",v);});
   document.getElementById("gback").addEventListener("click",goHome);
+  var gt=document.getElementById("giveT");
+  if(gt)gt.addEventListener("click",function(){store.set("claimed",store.get("claimed",0)+goalStars());renderGrown();});
+  [].forEach.call(elG.querySelectorAll("[data-undo]"),function(b){
+    b.addEventListener("click",function(){var all=days();if(all[k]&&typeof all[k]==="object"){delete all[k][b.getAttribute("data-undo")];store.set("days",all);}renderGrown();});
+  });
+  [].forEach.call(elG.querySelectorAll("[data-rmw]"),function(b){
+    b.addEventListener("click",function(){var list=store.get("words",[]);list.splice(+b.getAttribute("data-rmw"),1);store.set("words",list);renderGrown();});
+  });
   document.getElementById("sAdd").addEventListener("click",function(){
     var w=document.getElementById("sWhat").value.trim(),n=document.getElementById("sNote").value.trim();
     if(!w){document.getElementById("sWhat").focus();return;}
@@ -680,10 +815,19 @@ function renderGrown(){
   document.getElementById("tCopy").addEventListener("click",function(){
     copyText(teacherText(),document.getElementById("tSaid"),document.getElementById("tFb"));
   });
+  document.getElementById("bkCopy").addEventListener("click",function(){
+    copyText(backupText(),document.getElementById("bkSaid"),document.getElementById("bkFb"));
+  });
+  document.getElementById("rsGo").addEventListener("click",function(){
+    var ok=restoreFrom(document.getElementById("rsText").value.trim());
+    if(ok){renderGrown();document.getElementById("rsMsg").textContent="Restored.";}
+    else document.getElementById("rsMsg").textContent="That does not look like a backup from this page.";
+  });
 }
 
 renderHome();
 </script>
 
+<script>if("serviceWorker" in navigator&&(location.protocol==="https:"||location.hostname==="localhost")){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){});});}</script>
 </body>
 </html>
