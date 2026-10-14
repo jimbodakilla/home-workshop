@@ -771,6 +771,19 @@ var SC={
   berry:function(o){return '<path d="M0 18C-18 6-16-14 0-14C16-14 18 6 0 18z" fill="'+P_R+'" '+K(2.4)+'/><path d="M-8-14L0-21 8-14 0-10z" fill="'+P_G+'" '+K(2)+'/><circle cx="-6" cy="-4" r="1.5" fill="#FFE8A0"/><circle cx="5" cy="-3" r="1.5" fill="#FFE8A0"/><circle cx="0" cy="5" r="1.5" fill="#FFE8A0"/>';},
   compass:function(o){return '<circle r="26" fill="#fff" '+K(3)+'/><circle r="20" fill="#F7F2E4" '+K(1.6)+'/><g transform="rotate('+(o.a||0)+')"><polygon points="0,-18 5,0 -5,0" fill="'+P_R+'" '+K(1.6)+'/><polygon points="0,18 5,0 -5,0" fill="#C7CFD6" '+K(1.6)+'/></g><circle r="2.4" fill="'+OUT+'"/>';},
   tent:function(o){return '<polygon points="-42,26 0,-30 42,26" fill="'+(o.c||P_O)+'" '+K(2.6)+'/><polygon points="-12,26 0,-6 12,26" fill="#8A5A2B" '+K(2)+'/><path d="M0-30V-40" fill="none" '+K(2.4)+'/>';},
+  egg:function(o){return SC.leaf({c:P_G})+'<ellipse cx="2" cy="-4" rx="4.4" ry="5.4" fill="#FFF8D8" '+K(1.8)+'/>';},
+  caterpillar:function(o){var s='',i;for(i=4;i>=0;i--)s+='<circle cx="'+(i*16-32)+'" cy="'+(i%2?-2:2)+'" r="11" fill="'+(i===0?'#8FD36B':'#6FCB5B')+'" '+K(2.4)+'/>';
+    return s+'<circle cx="-36" cy="-1" r="2" fill="'+OUT+'"/><circle cx="-28" cy="-1" r="2" fill="'+OUT+'"/><path d="M-35 6q3 3 6 0" fill="none" '+K(1.8)+'/><path d="M-38-10q-2-8-6-8M-30-10q0-8 4-9" fill="none" '+K(2)+'/>';},
+  chrysalis:function(o){return '<path d="M0-44V-22" fill="none" '+K(3)+'/><path d="M0-22C-14-18-14 12 0 30C14 12 14-18 0-22z" fill="#8DBF7A" '+K(2.6)+'/><path d="M-9-8q9 4 18 0M-8 4q8 4 16 0M-5 15q5 3 10 0" fill="none" '+K(1.6)+'/>';},
+  butterfly:function(o){var c=o.c||P_O;return '<path d="M0-4C-10-30-40-34-38-10C-36 2-14 4 0 0z" fill="'+c+'" '+K(2.4)+'/><path d="M0-4C10-30 40-34 38-10C36 2 14 4 0 0z" fill="'+c+'" '+K(2.4)+'/>'+
+      '<path d="M0 0C-8 4-26 8-22 24C-18 34-4 24 0 8z" fill="'+P_Y+'" '+K(2.4)+'/><path d="M0 0C8 4 26 8 22 24C18 34 4 24 0 8z" fill="'+P_Y+'" '+K(2.4)+'/><circle cx="-22" cy="-14" r="5" fill="#fff"/><circle cx="22" cy="-14" r="5" fill="#fff"/>'+
+      '<rect x="-3" y="-14" width="6" height="34" rx="3" fill="#5B3F7A" '+K(2)+'/><path d="M-1-14q-6-12-12-12M1-14q6-12 12-12" fill="none" '+K(1.8)+'/>';},
+  rocket:function(o){var f=o.fire!==false?'<path d="M-9 34Q0 68 9 34z" fill="'+P_O+'" '+K(2.4)+'/><path d="M-4 34Q0 54 4 34z" fill="'+P_Y+'"/>':'';
+    return f+'<path d="M-14 22L-30 40L-30 14L-14 2z" fill="'+P_R+'" '+K(2.4)+'/><path d="M14 22L30 40L30 14L14 2z" fill="'+P_R+'" '+K(2.4)+'/><path d="M0-48C16-30 16 0 14 34H-14C-16 0-16-30 0-48z" fill="#fff" '+K(2.6)+'/>'+
+      '<path d="M0-48C8-40 12-34 13-28H-13C-12-34-8-40 0-48z" fill="'+P_R+'" '+K(2.4)+'/><circle cy="-8" r="8" fill="'+P_B+'" '+K(2.4)+'/>';},
+  stand:function(o){return '<rect x="-40" y="12" width="6" height="30" fill="#A9794B" '+K(2)+'/><rect x="34" y="12" width="6" height="30" fill="#A9794B" '+K(2)+'/><rect x="-46" y="0" width="92" height="12" rx="3" fill="#C9A57A" '+K(2.4)+'/>'+
+      '<rect x="-30" y="-26" width="22" height="26" rx="4" fill="#FFF3A8" '+K(2.2)+'/><path d="M-8-20h5a5 5 0 0 1 0 12h-5" fill="none" '+K(2.2)+'/><rect x="8" y="-14" width="12" height="14" rx="2" fill="#fff" '+K(2)+'/><rect x="26" y="-14" width="12" height="14" rx="2" fill="#fff" '+K(2)+'/>'+
+      '<rect x="-46" y="-56" width="92" height="22" rx="4" fill="#fff" '+K(2.4)+'/><text x="0" y="-40" text-anchor="middle" font-family="sans-serif" font-weight="800" font-size="13" fill="'+P_R+'">LEMONADE</text>';},
   bush:function(o){return blob([[-20,8,15],[0,-2,20],[20,8,15],[0,14,16]],o.c||'#5FBF6A');},
   fog:function(o){return '<ellipse cx="-70" cy="6" rx="90" ry="22" fill="rgba(255,255,255,.72)"/><ellipse cx="60" cy="-16" rx="100" ry="24" fill="rgba(255,255,255,.72)"/><ellipse cx="10" cy="28" rx="110" ry="20" fill="rgba(255,255,255,.62)"/>';},
   rabbit:function(o){return '<circle cx="-30" cy="6" r="7" fill="#fff" '+K(2.2)+'/><ellipse cx="-4" cy="8" rx="26" ry="18" fill="#C9B8A6" '+K(2.6)+'/><ellipse cx="-10" cy="22" rx="14" ry="7" fill="#B8A794" '+K(2.2)+'/>'+
@@ -1510,7 +1523,35 @@ var WORDS=[
  ["conserve","v","to save and use carefully so it lasts","We turn off the tap while we brush to conserve water.",5,"safe"],
  ["diminish","v","to become smaller or less","As the sun went down, the light began to diminish.",5,"amount"],
  ["endeavor","n","a serious try at doing something hard","Climbing the huge mountain was a difficult endeavor.",5,"luck"],
- ["agile","adj","able to move quickly and easily","The agile squirrel leaped from branch to branch.",5,"speed"]
+ ["agile","adj","able to move quickly and easily","The agile squirrel leaped from branch to branch.",5,"speed"],
+ ["silent","adj","making no sound at all","The silent room was so still that I could hear the clock tick.",1,"sound"],
+ ["explore","v","to travel around a new place to see what is there","We will explore the old cave with a flashlight.",1,"move"],
+ ["yawn","v","to open your mouth wide when you are sleepy","I always yawn when I am sleepy at bedtime.",1,"body"],
+ ["cozy","adj","warm, soft and comfortable","The cozy blanket kept me warm on the cold night.",1,"comfort"],
+ ["chilly","adj","a little bit cold","It was a chilly morning, so we wore our coats.",2,"temp"],
+ ["crumble","v","to break into small pieces","The dry cookie began to crumble in my hand.",2,"break"],
+ ["stroll","v","to walk slowly, just for fun","After dinner, we like to stroll around the block.",2,"walk"],
+ ["bargain","n","something that you buy for less money than usual","The shoes were a bargain because they cost half the normal price.",2,"money"],
+ ["scold","v","to tell someone off for doing something wrong","Mom will scold us if we leave muddy shoes in the hall.",2,"speak"],
+ ["gloomy","adj","dark and sad-looking","The gloomy sky made the whole day feel sad.",2,"feel"],
+ ["fetch","v","to go and bring something back","Please fetch my coat from the hall.",2,"move"],
+ ["conclude","v","to decide something after thinking about the facts","After checking the clues, the detective could conclude that the thief was tall.",3,"mind"],
+ ["evidence","n","facts or signs that show something is true","The muddy footprints were evidence that someone had walked in.",3,"proof"],
+ ["transparent","adj","so clear that you can see through it","A window is transparent, so we can see the garden through it.",3,"see2"],
+ ["fragment","n","a small piece that has broken off","A tiny fragment of the plate lay on the floor.",3,"piece"],
+ ["compare","v","to look at things to see how they are alike and different","Let us compare the two drawings to see what changed.",3,"mind"],
+ ["locate","v","to find where something is","Use the map to locate the nearest park.",3,"find"],
+ ["distinct","adj","clearly different from the others","Each bird has a distinct song that is easy to tell apart.",3,"diff"],
+ ["obstacle","n","something that blocks your way","A fallen tree was an obstacle on the trail.",4,"block"],
+ ["inspect","v","to look at something very carefully","The mechanic will inspect the engine for any damage.",4,"see"],
+ ["extinct","adj","no longer alive anywhere in the world","Dinosaurs are extinct, so none of them are alive today.",4,"life"],
+ ["ingredient","n","one of the things you mix to make a food","Flour is the main ingredient in bread.",4,"food"],
+ ["approximate","adj","close to exact, but not perfectly right","An approximate answer is close, but it may be a little off.",4,"amount"],
+ ["adapt","v","to change so that you can live well in a new place","Some animals adapt to the cold by growing thick fur.",5,"change"],
+ ["scrutinize","v","to examine something extremely closely","The jeweler will scrutinize the stone for tiny cracks.",5,"see"],
+ ["hypothesis","n","an idea you can test to see if it is true","Her hypothesis was that plants grow faster with more light.",5,"mind"],
+ ["inhabit","v","to live in a place","Polar bears inhabit the icy lands near the North Pole.",5,"place"],
+ ["contrast","n","a big difference between two things","There was a sharp contrast between the hot day and the freezing night.",5,"diff"]
 ];
 function wordDefQ(w,lvl){
   var pool=WORDS.filter(function(x){return x[1]===w[1]&&x[5]!==w[5]&&x[0]!==w[0];});
@@ -1784,7 +1825,43 @@ var STORIES=[
   qs:[["Why does Bolt say he cannot know what an apple feels like?",["He has read about food but never tasted it","He does not like the smell of apples","He lost the books that told him about it","He is much too small to pick one up"],0,"He read every book about food, but he has never tasted it."],
       ["What did Mina mean by \"a tiny bite of sunshine that goes crunch\"?",["She used a word picture to help him imagine","The apple was truly made out of sunshine","The apple was glowing like a small lamp","She wanted him to eat the apple right away"],0,"She used a comparison to help Bolt imagine the taste and the crunch."],
       ["Why did Bolt say \"That is not in any of my books\"?",["He had never read a line like it","He did not understand her words","He could not hear what she said","His books had all been burned"],0,"Mina's description was new to him, and it was not written in his books."],
-      ["What did Bolt learn at the end?",["Some things are best learned from people","Books are never worth reading again","Robots are not able to learn new things","Apples are not real and cannot be tasted"],0,"Mina said the best descriptions come from the people who share the apple, which taught Bolt something no book could."]]}
+      ["What did Bolt learn at the end?",["Some things are best learned from people","Books are never worth reading again","Robots are not able to learn new things","Apples are not real and cannot be tasted"],0,"Mina said the best descriptions come from the people who share the apple, which taught Bolt something no book could."]]},
+ {id:"s-rainy",t:"Max and the Rainy Day",lvl:1,pages:[
+  {bg:"sky",i:[["house",290,150,1.7],["cloud",290,28,1.3,{dark:true}],["rain",290,76,1.7],["kid",100,172,1.5,{c:P_G}]],x:"It was raining, and Max could not go out to play. He sat on the sofa with a long, sad face."},
+  {bg:"indoor",i:[["kid",120,170,1.6,{c:P_G}],["cat",300,190,1.4]],x:"His cat, Pickle, rubbed against his leg. \"Do you want to play, Pickle?\" asked Max. Pickle purred."},
+  {bg:"indoor",i:[["tent",200,158,2.2,{c:P_PU}],["cat",330,192,1],["kid",80,172,1.3,{c:P_G,up:true}]],x:"Max had an idea. He took the blankets off the beds and built a big fort. Pickle jumped inside first."},
+  {bg:"indoor",i:[["tent",200,158,2.2,{c:P_PU}],["kid",84,172,1.3,{c:P_G,up:true}],["sparkle",300,56,1.4],["star",100,50,1]],x:"Soon the fort was a ship on the sea. Max was the captain, and Pickle was his crew. \"Rainy days are the best,\" said Max."}],
+  qs:[["Why was Max sad at the start?",["He could not go outside to play","He had misplaced his favorite toy","He was feeling extremely hungry","He was too sleepy to play games"],0,"It was raining, so Max could not go out to play."],
+      ["What did Max build?",["A fort","A boat","A tower","A bed"],0,"He built a big fort from blankets."],
+      ["Why did Max say, \"Rainy days are the best\"?",["He had found a fun game to play","He likes to get wet in the rain","He was tired of playing outside","He wanted the cat to go to sleep"],0,"He turned the fort into a ship, and he had fun even though it was raining."]]},
+ {id:"s-lemonade",t:"Ruby's Lemonade Stand",lvl:2,pages:[
+  {bg:"meadow",i:[["sun",330,48,1.6],["stand",110,170,1.3],["kid",196,182,1.4,{c:P_Y}],["house",300,150,1.3]],x:"Ruby made lemonade on the hottest day of summer. She set up a little stand in front of her house and waited."},
+  {bg:"meadow",i:[["stand",110,170,1.3],["kid",196,182,1.4,{c:P_Y}],["house",300,150,1.3],["clock",340,50,.8,{h:2,m:0}]],x:"An hour went by, and nobody came. The street was quiet. Everyone, it seemed, was at the park."},
+  {bg:"meadow",i:[["tree",340,140,1.8],["stand",70,172,1.2],["kid",150,182,1.3,{c:P_Y}],["kid",235,176,1.1,{c:P_B}],["kid",285,178,1.1,{c:P_R}],["sun",300,44,1.1]],x:"So Ruby carried her stand to the park. Kids were running and playing in the hot sun, and they were very thirsty."},
+  {bg:"meadow",i:[["stand",100,170,1.3],["kid",180,182,1.4,{c:P_Y,up:true}],["kid",260,178,1.1,{c:P_B,up:true}],["kid",320,178,1.1,{c:P_R,up:true}],["sparkle",330,70,1.4]],x:"By lunchtime, every cup was sold. Ruby smiled. \"If people will not come to you, go to where the people are,\" she said."}],
+  qs:[["Why did Ruby move her stand?",["No one came to her street","The sun had finally gone down","Her lemons had all been used up","It had started to pour with rain"],0,"Nobody came to her street because everyone was at the park."],
+      ["Why were the kids at the park so thirsty?",["They were playing hard in the heat","They had eaten some very salty snacks","They had not eaten any lunch yet","The park had no drinking water at all"],0,"Running around on a hot day makes people thirsty."],
+      ["What lesson did Ruby learn?",["Go to where the people are","Lemonade is always popular","Never work on a hot day","Parks are better than houses"],0,"She said, \"Go to where the people are.\""],
+      ["In the story, what does <b>quiet</b> mean when it describes the street?",["With very little noise","Crowded with lots of shouting","Bright and very warm all over","Dark and covered in cold fog"],0,"A quiet street has very little noise because few people are there."]]},
+ {id:"s-stars",t:"Omar and the Night Sky",lvl:3,pages:[
+  {bg:"dusk",i:[["kid",100,172,1.5,{c:P_O}],["kid",180,168,1.8,{c:"#8A8F9E",s:"#C98F63",h:"#E6E6E6"}],["tent",330,170,1.4]],x:"Omar and his grandfather drove far away from the city to camp. \"Out here,\" Grandpa said, \"the sky really shows off.\""},
+  {bg:"night",i:[["kid",110,178,1.5,{c:P_O,up:true}],["star",60,40,1.2,{}],["star",170,26,.9,{}],["star",250,60,1.1,{}],["star",320,30,.8,{}],["star",360,90,1,{}],["star",220,100,.7,{}],["moon",330,160,.8,{p:"crescent"}]],x:"When it got dark, Omar gasped. There were thousands of stars. In the city, he had only ever seen a few."},
+  {bg:"night",i:[["wire",200,100,1,{pts:"-120,10 -60,-20 0,-10 55,-35 120,-60 150,-20 90,-6",c:"#C7CFD6"}],["star",80,110,1.1,{}],["star",140,80,1.1,{}],["star",200,90,1.1,{}],["star",255,65,1.1,{}],["star",320,40,1.1,{}],["star",350,80,1.1,{}],["star",290,94,1.1,{}],["kid",90,200,1.1,{c:P_O,up:true}]],x:"Grandpa showed him a pattern of stars shaped like a big spoon. \"Sailors have used it to find north for thousands of years,\" he said."},
+  {bg:"night",i:[["planet",300,70,.9,{c:"#E0583F"}],["star",80,60,1,{}],["star",160,40,.8,{}],["kid",100,185,1.3,{c:P_O,up:true}],["kid",190,182,1.5,{c:"#8A8F9E",s:"#C98F63",h:"#E6E6E6"}],["sparkle",220,50,1.3]],x:"Then Omar spotted a light that did not twinkle. \"That is Mars,\" said Grandpa. \"Planets shine steadily. Stars flicker because their light travels so far.\" Omar hardly slept that night, and he did not mind at all."}],
+  qs:[["Why could Omar see so many stars?",["They were far from the city lights","The stars were closer than usual that night","He was wearing special star-gazing glasses","The moon was extra bright that night"],0,"City lights make it hard to see stars, and Omar was far from the city."],
+      ["What does <b>gasped</b> tell you about how Omar felt?",["He was amazed","He was bored","He was angry","He was sleepy"],0,"People gasp when something surprises or amazes them."],
+      ["How was Mars different from the stars?",["It shone steadily and did not flicker","It flickered more brightly than every star","It was far bigger than the whole Moon","It was hidden behind a thick cloud"],0,"Grandpa said planets shine steadily while stars flicker."],
+      ["Why did Omar not mind staying awake most of the night?",["He was too excited about the sky","He was afraid of the dark all night","He had a bad dream about a storm","He was waiting for an early breakfast"],0,"He loved what he had seen, so he did not mind being awake."]]},
+ {id:"s-bridge",t:"The Bridge Between the Villages",lvl:4,pages:[
+  {bg:"meadow",i:[["house",60,150,1.2],["house",120,162,1],["house",340,150,1.2],["house",280,162,1],["wave",200,208,3]],x:"Two villages stood on opposite sides of a wide river. The people in each village liked to say that theirs was the very best."},
+  {bg:"meadow",i:[["kid",110,166,1.3,{c:P_R,up:true}],["kid",290,166,1.3,{c:P_B,up:true}],["label",110,100,1,{t:"Our corn is best!",sz:15}],["label",290,100,1,{t:"No, ours is!",sz:15}],["wave",200,208,3]],x:"They shouted across the water every day, but nobody wanted to cross. The river was deep, and the only other way was a long walk around the mountains."},
+  {bg:"storm",i:[["house",60,150,1.2],["house",340,150,1.2],["cloud",200,36,1.6,{dark:true}],["rain",200,84,1.8],["wave",200,208,3.2],["bolt",250,100,1.2]],x:"One stormy night, a flood washed away the farms in the east village. Their harvest was gone, and winter was coming. The west village had plenty of grain, but no way to carry it across."},
+  {bg:"meadow",i:[["bridge",200,120,2.2],["kid",60,172,1.2,{c:P_R,up:true}],["kid",340,172,1.2,{c:P_B,up:true}],["sparkle",200,40,1.3],["wave",200,210,3]],x:"Both villages worked together all winter. When spring came, a strong bridge stood over the river. Now they trade, share stories, and still argue about whose corn is best, but they argue as friends."}],
+  qs:[["Why did nobody cross the river at the start?",["The only other way was a very long walk","The river was frozen solid all year long","Wild animals lived on the river banks","The village rules did not allow crossing"],0,"The river was deep, and the only other way was a long walk around the mountains."],
+      ["What does <b>harvest</b> mean in the story?",["The crops picked at the end of the season","A heavy storm that arrives at night time","A farming tool used for digging soil","A market where the villages trade goods"],0,"A harvest is the crops that farmers pick, which the flood destroyed."],
+      ["What problem did the flood cause?",["Food was lost, and grain could not cross","Both villages were washed far away","The village houses all caught on fire","Nobody could find the river anymore"],0,"The east village's farms were ruined, and the west village's grain could not cross the river."],
+      ["How had the two villages changed by the end?",["They had become friends who share","They had stopped speaking to each other","They had moved far up into the mountains","They had built tall walls between them"],0,"They built a bridge together, so they now trade and argue as friends."]]}
+
 ];
 function pickStory(lvl){
   var seen=store.get("storiesSeen",[]),un=function(s){return seen.indexOf(s.id)<0;},pool;
@@ -1970,7 +2047,88 @@ var LESSONS=[
   {bg:"sky",i:[["plane",150,120,2.1],["arrow",322,120,1,{len:70,a:0,c:P_R}],["label",290,190,1,{t:"engines push forward",sz:18}]],x:"The engines push the plane forward very fast, so plenty of air keeps flowing over the wings."}],
   qs:[["What holds an airplane up in the sky?",["Lift","A giant magnet","Balloons","Gravity"],0,"The air pushes the wings up. That is lift."],
       ["What do an airplane's engines do?",["Push the plane forward","Make the plane float like a boat","Make it lighter than air","Pull clouds in"],0,"Engines push the plane forward so air flows over the wings."],
-      ["What do the wings do to the air?",["Push it downward","Eat it","Freeze it","Turn it into water"],0,"Wings push air down, and the air pushes back up."]]}
+      ["What do the wings do to the air?",["Push it downward","Eat it","Freeze it","Turn it into water"],0,"Wings push air down, and the air pushes back up."]]},
+ {id:"seed-travel",t:"How seeds travel",lvl:2,tags:["plants","animals"],pages:[
+  {bg:"meadow",i:[["flower",110,160,1.8,{c:P_PK}],["seed",200,100,1.8],["seed",290,140,1.4],["seed",150,52,1.2]],x:"A plant makes seeds so that new plants can grow. But seeds need room, so they have to travel away from the parent plant."},
+  {bg:"sky",i:[["tree",330,140,1.5],["arrow",110,86,1,{len:70,a:0,c:"#fff"}],["arrow",110,126,1,{len:70,a:0,c:"#fff"}],["seed",230,88,1.5,{r:20}],["seed",290,128,1.1,{r:-30}],["cloud",320,38,.8,{}]],x:"Some seeds are very light, with fluffy parts. The wind picks them up and carries them far away."},
+  {bg:"meadow",i:[["dog",190,170,1.5],["seed",168,158,.6],["seed",198,154,.6],["seed",226,164,.6],["seed",330,196,.7],["print",110,200,.8]],x:"Some seeds are sticky or have little hooks. They cling to the fur of animals, and later they drop off in a new place."},
+  {bg:"meadow",i:[["berry",64,166,1.6],["arrow",128,132,1,{len:44,a:0,c:P_R}],["bird",190,86,1.8],["arrow",262,132,1,{len:44,a:0,c:P_R}],["sprout",335,172,1.1,{stage:2}]],x:"Birds eat sweet berries. The seeds pass through the bird and land far from where it ate, ready to grow."}],
+  qs:[["Why do plants send their seeds far away?",["So new plants have room to grow","So the seeds can find a warm bed","So bees will not eat the seeds","So the parent plant stays small"],0,"Seeds that fall right under the parent plant would be crowded, so they travel to find room."],
+      ["How do light, fluffy seeds travel?",["The wind carries them far away","They hop along on tiny legs","They swim up rivers like fish","They roll down long hills alone"],0,"Light, fluffy seeds are carried by the wind."],
+      ["How do sticky, hooked seeds travel?",["They stick to the fur of animals","The rain washes them to far lands","They are blown away by strong wind","They fall straight down from the sky"],0,"Hooks and sticky coats let seeds cling to passing animals."]]},
+ {id:"seasons",t:"Why we have seasons",lvl:4,tags:["space","earth"],pages:[
+  {bg:"space",i:[["sun",200,120,1.1,{plain:true}],["orbit",200,120,1,{r:92}],["earth",200,28,.5],["earth",292,120,.5],["earth",200,212,.5],["earth",108,120,.5]],x:"Earth travels in a giant circle around the Sun. One trip takes one year."},
+  {bg:"space",i:[["earth",200,120,2.4,{r:23}],["wire",200,120,1,{pts:"37,-96 -37,96",c:P_Y}],["label",320,50,1,{t:"tilted",sz:24,c:"#fff"}]],x:"Earth is tilted, like a spinning top that leans a little. It always leans the same way as it travels."},
+  {bg:"space",i:[["sun",50,120,1.4,{plain:true}],["earth",250,112,2.1,{r:23,dark:"right"}],["label",250,222,1,{t:"leaning toward the Sun: summer",sz:15,c:"#fff"}]],x:"When our part of Earth leans toward the Sun, sunlight is stronger and the days are longer. That is summer."},
+  {bg:"space",i:[["sun",50,120,1.4,{plain:true}],["earth",250,112,2.1,{r:-23,dark:"right"}],["label",250,222,1,{t:"leaning away from the Sun: winter",sz:15,c:"#fff"}]],x:"When our part of Earth leans away from the Sun, sunlight is weaker and the days are shorter. That is winter."}],
+  qs:[["How long does Earth take to travel once around the Sun?",["One year","One day","One month","One week"],0,"One trip around the Sun is one year."],
+      ["What causes the seasons?",["Earth is tilted as it goes around the Sun","Earth moves closer to and farther from the Sun","The Sun burns hotter and then colder","The Moon blocks the Sun for months"],0,"Because Earth is tilted, different parts get more or less direct sunlight during the year."],
+      ["When our part of Earth leans toward the Sun, it is...",["Summer","Winter","A full moon","The middle of night"],0,"Leaning toward the Sun means stronger sunlight and longer days: summer."]]},
+ {id:"ice-floats",t:"Why ice floats",lvl:3,tags:["ocean","earth"],pages:[
+  {bg:"plain",i:[["thermo",80,112,1.5],["label",80,200,1,{t:"0°C",sz:22}],["drop",190,112,2.2],["arrow",250,112,1,{len:46,a:0,c:P_B}],["ice",325,112,1.6]],x:"Water can be a liquid, a solid or a gas. When water gets cold enough, it freezes into solid ice."},
+  {bg:"plain",i:[["drop",110,106,2.2],["label",110,190,1,{t:"water",sz:20}],["ice",285,106,2.1],["label",285,190,1,{t:"the same water, frozen",sz:15}]],x:"When water freezes, it spreads out and takes up more room. So ice is a little lighter than the same amount of liquid water."},
+  {bg:"water",i:[["ice",90,100,1.5],["ice",200,102,1.3],["ice",310,104,1.1],["fish",160,190,.9]],x:"Because ice is lighter than water, it floats on top. That is why a lake freezes from the top down."},
+  {bg:"deep",i:[["ice",40,24,1.3],["ice",120,24,1.3],["ice",200,24,1.3],["ice",280,24,1.3],["ice",360,24,1.3],["fish",200,150,2],["bubbles",110,150,1.6]],x:"The ice on top works like a blanket. Under it, the water stays liquid, so fish can swim all winter long."}],
+  qs:[["Why does ice float on water?",["Ice is lighter than the same water","Ice is filled with a lot of air","Ice is colder than the water","Ice is stuck to the lake's edges"],0,"Water spreads out when it freezes, so ice is lighter than the same amount of liquid water."],
+      ["What happens to water when it freezes?",["It spreads out and takes more room","It shrinks down into a smaller space","It turns into an invisible gas","It gets much heavier and sinks"],0,"Freezing water spreads out and takes up more room."],
+      ["Why can fish live under a frozen lake?",["The water under the ice stays liquid","The fish freeze but wake up in spring","The fish dig tunnels through the ice","The fish eat the ice to stay warm"],0,"The ice on top keeps the water below from freezing, so the fish can still swim."]]},
+ {id:"food-chain",t:"A food chain",lvl:2,tags:["animals","plants"],pages:[
+  {bg:"meadow",i:[["sun",330,48,1.3],["grass",110,196,2.4],["grass",260,200,2.4],["sparkle",200,120,1.4]],x:"Plants make their own food from sunlight, water and air. Many animals depend on plants for their food."},
+  {bg:"meadow",i:[["grass",86,200,2.3],["arrow",190,172,1,{len:56,a:0,c:P_R}],["rabbit",290,166,1.6]],x:"A rabbit eats grass. The grass gives the rabbit energy to hop and grow."},
+  {bg:"meadow",i:[["rabbit",92,170,1.3],["arrow",190,166,1,{len:56,a:0,c:P_R}],["cat",300,172,1.6]],x:"A wildcat eats the rabbit. Now the energy that began in the grass has moved on to the wildcat."},
+  {bg:"sky",i:[["sun",52,92,.8],["arrow",104,92,1,{len:36,a:0,c:P_R}],["grass",150,150,1.3],["arrow",208,112,1,{len:36,a:0,c:P_R}],["rabbit",256,124,.95],["arrow",306,112,1,{len:30,a:0,c:P_R}],["cat",360,124,.7]],x:"Every food chain starts with the Sun. The energy goes from the Sun to the plant, then to the animal that eats the plant, and then to the animal that eats that animal."}],
+  qs:[["What do plants use to make their own food?",["Sunlight, water and air","Soil and small rocks","Meat from other animals","Moonlight and wind"],0,"Plants make food from sunlight, water and air."],
+      ["Which is the correct order of this food chain?",["Sun, grass, rabbit, wildcat","Wildcat, rabbit, grass, Sun","Rabbit, Sun, wildcat, grass","Grass, wildcat, Sun, rabbit"],0,"The chain starts with the Sun, then the plant, then the plant eater, then the animal that eats it."],
+      ["What do the arrows in a food chain show?",["The way the energy moves","Which animal runs fastest","The direction of the wind","How far each animal walks"],0,"The arrows show how energy moves from one living thing to the next."]]},
+ {id:"butterfly",t:"How a butterfly grows",lvl:1,tags:["animals","plants"],pages:[
+  {bg:"meadow",i:[["egg",200,150,3.4]],x:"A butterfly begins life as a tiny egg, stuck to a leaf."},
+  {bg:"meadow",i:[["leaf",100,172,2.2],["caterpillar",250,140,1.5]],x:"A caterpillar hatches from the egg. It eats leaves all day, and it grows bigger and bigger."},
+  {bg:"sky",i:[["wire",200,12,1,{pts:"-150,0 150,0",c:"#8A6A45"}],["chrysalis",200,92,1.8]],x:"The caterpillar hangs from a twig and turns into a chrysalis. Inside, its body changes completely."},
+  {bg:"meadow",i:[["butterfly",200,92,2.4],["flower",96,172,1.6,{c:P_PK}],["flower",304,172,1.6,{c:P_O}],["sparkle",300,58,1.2]],x:"After about two weeks, a butterfly comes out. It dries its wings and flies off to find flowers."}],
+  qs:[["What does a caterpillar eat?",["Leaves","Pebbles","Honey","Feathers"],0,"A caterpillar eats leaves, and it eats a lot of them."],
+      ["What is the stage between a caterpillar and a butterfly?",["The chrysalis","The egg","The tadpole","The nest"],0,"The caterpillar changes inside a chrysalis."],
+      ["Which list shows the stages in the right order?",["Egg, caterpillar, chrysalis, butterfly","Caterpillar, egg, butterfly, chrysalis","Butterfly, egg, chrysalis, caterpillar","Chrysalis, butterfly, egg, caterpillar"],0,"A butterfly grows from an egg, to a caterpillar, to a chrysalis, to a butterfly."]]},
+ {id:"solar-system",t:"Our Solar System",lvl:3,tags:["space"],pages:[
+  {bg:"space",i:[["sun",12,120,3.4,{plain:true}],["planet",190,120,.55,{c:"#B8A99A"}],["planet",250,120,.7,{c:"#F2C27B"}],["earth",318,120,.8],["planet",376,120,.55,{c:"#E0583F"}]],x:"Our Solar System has one star, the Sun, with eight planets that travel around it."},
+  {bg:"space",i:[["planet",62,100,.55,{c:"#B8A99A"}],["planet",150,100,.75,{c:"#F2C27B"}],["earth",245,100,.75],["planet",335,100,.62,{c:"#E0583F"}],["label",62,170,1,{t:"Mercury",sz:15,c:"#fff"}],["label",150,170,1,{t:"Venus",sz:15,c:"#fff"}],["label",245,170,1,{t:"Earth",sz:15,c:"#fff"}],["label",335,170,1,{t:"Mars",sz:15,c:"#fff"}]],x:"The four planets closest to the Sun are small and rocky: Mercury, Venus, Earth and Mars."},
+  {bg:"space",i:[["planet",60,104,1.3,{c:"#D9A066"}],["planet",168,104,1.05,{c:"#F2D08A",ring:true}],["planet",270,104,.85,{c:"#8ED6E0"}],["planet",352,104,.85,{c:"#4C7BE0"}],["label",60,190,1,{t:"Jupiter",sz:14,c:"#fff"}],["label",168,190,1,{t:"Saturn",sz:14,c:"#fff"}],["label",270,190,1,{t:"Uranus",sz:14,c:"#fff"}],["label",352,190,1,{t:"Neptune",sz:14,c:"#fff"}]],x:"The next four are much bigger: Jupiter, Saturn, Uranus and Neptune. Jupiter is the biggest of all, and Saturn is famous for its bright rings."},
+  {bg:"space",i:[["sun",40,120,1.2,{plain:true}],["earth",250,128,2.4],["label",250,34,1,{t:"Earth: third from the Sun",sz:17,c:"#fff"}]],x:"Earth is the third planet from the Sun. It is the only planet we know of that has liquid water and living things."}],
+  qs:[["How many planets travel around the Sun?",["Eight","Five","Nine","Twelve"],0,"There are eight planets in our Solar System."],
+      ["Which planet is the biggest?",["Jupiter","Earth","Mars","Mercury"],0,"Jupiter is the biggest planet of all."],
+      ["Which number planet from the Sun is Earth?",["Third","First","Fifth","Eighth"],0,"Mercury and Venus come first, so Earth is the third planet."]]},
+ {id:"rocket",t:"How a rocket gets to space",lvl:4,tags:["space","machines"],pages:[
+  {bg:"sky",i:[["kid",100,176,1.5,{up:true}],["apple",200,56,1.2],["arrow",200,112,1,{len:46,a:90,c:P_R}],["label",300,150,1,{t:"gravity",sz:24,c:P_R}]],x:"Gravity is a pull that brings everything down toward the ground. A ball that you throw up always comes back down."},
+  {bg:"sky",i:[["rocket",200,92,1.5],["arrow",310,92,1,{len:56,a:-90,c:P_DG}],["label",326,150,1,{t:"push up",sz:18,c:P_DG}],["arrow",88,92,1,{len:50,a:90,c:P_R}],["label",74,150,1,{t:"gravity",sz:18,c:P_R}]],x:"To leave the ground, a rocket must push harder than gravity pulls. It burns fuel and shoots hot gas downward, and the gas pushes the rocket up."},
+  {bg:"space",i:[["earth",200,236,3.6],["orbit",200,236,1,{r:150}],["rocket",200,74,.55,{r:90,fire:false}],["arrow",290,74,1,{len:60,a:0,c:P_Y}]],x:"To stay up in space, a rocket must go very fast, about 28,000 kilometers an hour. Then it keeps falling around the Earth instead of falling down to it."},
+  {bg:"space",i:[["kid",190,100,1.6,{up:true,r:-18}],["earth",330,205,1.8],["star",60,50,1,{}],["star",90,180,.8,{}]],x:"Inside a spacecraft, astronauts float. Gravity has not gone away. They and the spacecraft are falling around the Earth together."}],
+  qs:[["What force pulls a thrown ball back down to the ground?",["Gravity","Magnetism","Wind","Sound"],0,"Gravity pulls everything toward the ground."],
+      ["How does a rocket lift off?",["Hot gas shoots down and pushes it up","It floats up like a giant balloon","The Moon pulls it up into the sky","It is lifted by strong winds up high"],0,"The rocket shoots hot gas downward, and the gas pushes the rocket up."],
+      ["Why do astronauts float inside a spacecraft?",["They are falling around Earth with it","Gravity switches off in space","The spacecraft is lighter than air","Space air pushes them upward"],0,"Gravity is still there. The astronauts and the spacecraft fall around Earth together."]]},
+ {id:"roots",t:"How a plant drinks",lvl:2,tags:["plants"],pages:[
+  {bg:"warm",i:[["sprout",200,150,2.1,{stage:3}],["drop",100,46,1.6],["drop",300,36,1.4]],x:"A plant cannot walk to a stream to get a drink. Instead, its roots reach down into the soil to find water."},
+  {bg:"plain",i:[["sprout",200,150,2.5,{stage:2}],["arrow",104,206,1,{len:44,a:-90,c:P_B}],["arrow",296,206,1,{len:44,a:-90,c:P_B}]],x:"Tiny hairs on the roots soak up water like a sponge, along with minerals from the soil."},
+  {bg:"warm",i:[["sprout",200,150,2.5,{stage:3}],["arrow",330,120,1,{len:70,a:-90,c:P_B}],["label",330,58,1,{t:"water goes up",sz:16}]],x:"The stem works like a straw. It carries the water up from the roots to the leaves."},
+  {bg:"sky",i:[["leaf",170,134,3],["sun",330,48,1.2],["arrow",300,150,1,{len:50,a:-90,c:"#fff"}],["arrow",344,162,1,{len:40,a:-90,c:"#fff"}]],x:"The leaves use the water, sunlight and air to make food. Extra water escapes through tiny holes in the leaves as vapor."}],
+  qs:[["What do roots take in from the soil?",["Water and minerals","Sunlight and heat","Wind and sand","Air and clouds"],0,"Roots soak up water and minerals from the soil."],
+      ["Which part of a plant works like a straw?",["The stem","The flower","The seed","The petal"],0,"The stem carries water up from the roots."],
+      ["What do leaves need to make food?",["Water, sunlight and air","Soil, rocks and wind","Meat, bones and water","Heat, noise and sand"],0,"Leaves make food from water, sunlight and air."]]}
+,
+ {id:"binary",t:"How computers count",lvl:5,tags:["robots","machines"],pages:[
+  {bg:"plain",i:[["bulb",100,96,1.6,{on:true}],["bulb",250,96,1.6,{on:false}],["label",100,190,1,{t:"on = 1",sz:26}],["label",250,190,1,{t:"off = 0",sz:26}]],x:"Inside a computer there are billions of tiny switches. Each switch is either on or off, like a light bulb."},
+  {bg:"plain",i:[["bulb",80,86,1.15,{on:false}],["bulb",160,86,1.15,{on:true}],["bulb",240,86,1.15,{on:false}],["bulb",320,86,1.15,{on:true}],["label",80,170,1,{t:"0",sz:34}],["label",160,170,1,{t:"1",sz:34}],["label",240,170,1,{t:"0",sz:34}],["label",320,170,1,{t:"1",sz:34}]],x:"We can write on as 1 and off as 0. A row of bulbs becomes a code, like 0101."},
+  {bg:"plain",i:[["bulb",44,80,.55,{on:false}],["bulb",78,80,.55,{on:false}],["bulb",134,80,.55,{on:false}],["bulb",168,80,.55,{on:true}],["bulb",224,80,.55,{on:true}],["bulb",258,80,.55,{on:false}],["bulb",314,80,.55,{on:true}],["bulb",348,80,.55,{on:true}],["label",61,150,1,{t:"00",sz:26}],["label",151,150,1,{t:"01",sz:26}],["label",241,150,1,{t:"10",sz:26}],["label",331,150,1,{t:"11",sz:26}]],x:"Two bulbs can make four different codes: 00, 01, 10 and 11. Every extra bulb doubles the number of codes."},
+  {bg:"plain",i:[["bolty",120,120,1.8,{mood:"think"}],["sparkle",230,60,1.6],["label",300,100,1,{t:"0110",sz:30}],["label",300,150,1,{t:"1011",sz:30}],["label",300,200,1,{t:"0001",sz:30}]],x:"With enough bulbs, a computer can make a code for every letter, picture and sound. Everything on a screen is built from patterns of on and off."}],
+  qs:[["What does the number 1 mean in a computer's code?",["A switch that is turned on","A switch that is turned off","The number of computers","A switch that is broken"],0,"In a computer's code, 1 stands for on and 0 stands for off."],
+      ["How many different codes can two bulbs make?",["Four","Two","Three","Six"],0,"The codes are 00, 01, 10 and 11, which makes four."],
+      ["Three bulbs make twice as many codes as two bulbs. How many codes is that?",["Eight","Six","Seven","Nine"],0,"Two bulbs make 4 codes, and one more bulb doubles it to 8."]]},
+ {id:"blue-sky",t:"Why the sky is blue",lvl:5,tags:["earth","space"],pages:[
+  {bg:"sky",i:[["sun",80,60,1.2,{plain:true}],["arrow",120,130,1,{len:70,a:70,c:P_R}],["arrow",160,140,1,{len:70,a:78,c:P_O}],["arrow",200,146,1,{len:70,a:88,c:P_Y}],["arrow",240,140,1,{len:70,a:98,c:P_G}],["arrow",280,130,1,{len:70,a:106,c:P_B}]],x:"Sunlight looks white, but it is a mix of all the colors of the rainbow."},
+  {bg:"sky",i:[["arrow",44,120,1,{len:72,a:0,c:"#fff"}],["drop",150,120,.8,{c:"#fff"}],["arrow",216,70,1,{len:50,a:-35,c:P_B}],["arrow",226,120,1,{len:50,a:0,c:P_B}],["arrow",216,170,1,{len:50,a:35,c:P_B}],["arrow",160,60,1,{len:50,a:-100,c:P_B}],["arrow",160,180,1,{len:50,a:100,c:P_B}],["label",300,40,1,{t:"tiny bits of air",sz:16}]],x:"Sunlight hits the tiny bits of air in the sky. Blue light bounces off them and scatters in all directions much more than red light does."},
+  {bg:"sky",i:[["kid",110,190,1.3,{c:P_O,up:true}],["arrow",250,60,1,{len:40,a:60,c:P_B}],["arrow",320,90,1,{len:40,a:120,c:P_B}],["arrow",200,40,1,{len:40,a:80,c:P_B}],["arrow",340,40,1,{len:40,a:100,c:P_B}]],x:"Blue light arrives at our eyes from every part of the sky. That is why the sky looks blue."},
+  {bg:"dusk",i:[["sun",300,150,1.6],["hill",200,230,1,{c:"#E8A860"}],["label",120,60,1,{t:"red and orange",sz:22,c:P_R,halo:"#fff"}]],x:"At sunset the Sun is low, and its light travels through much more air. Most of the blue is scattered away, so we see red and orange."}],
+  qs:[["What colors are mixed together in sunlight?",["All the colors of the rainbow","Only white and yellow","Only blue and green","No colors at all"],0,"Sunlight is a mix of every color of the rainbow."],
+      ["Why does the sky look blue?",["Blue light scatters across the sky the most","The sky is a giant blue ocean","The Sun is painted blue","Clouds make blue light"],0,"Tiny bits of air scatter blue light in every direction, so we see blue from all over the sky."],
+      ["Why do sunsets look red and orange?",["The light travels through more air, and the blue is scattered away","The Sun turns red when it gets tired","The Moon is shining behind the Sun","Red light is made at the end of the day"],0,"Low sunlight passes through more air, so the blue is scattered out and the red and orange are left."]]}
 ];
 
 /* ---------- True or Tricky: is the statement true? ---------- */
@@ -2014,7 +2172,30 @@ var TF=[
  [5,"If you add two odd numbers, the answer is always even.",1,"3 + 5 = 8 and 7 + 9 = 16. Two odd numbers always make an even number.","label","plain"],
  [5,"A triangle can have two square corners.",0,"If it had two square corners, the sides would never meet to make a triangle.","truss","plain"],
  [5,"Every number that ends in 5 can be divided by 5.",1,"Numbers that end in 0 or 5 can be divided by 5.","label","plain"],
- [5,"The planet Earth takes one year to travel around the Sun.",1,"One trip around the Sun takes Earth one year.","earth","space"]
+ [5,"The planet Earth takes one year to travel around the Sun.",1,"One trip around the Sun takes Earth one year.","earth","space"],
+ [1,"The Moon is a star.",0,"The Moon is a ball of rock that travels around Earth. Stars make their own light, but the Moon does not.","moon","night"],
+ [1,"Penguins can fly.",0,"Penguins are birds, but they use their wings to swim, not to fly.","bird","water"],
+ [1,"The Sun comes up in the east.",1,"The Sun rises in the east and sets in the west, because Earth spins.","sun","sky"],
+ [1,"Water freezes into ice when it gets cold enough.",1,"Water freezes at 0 degrees Celsius, which is 32 degrees Fahrenheit.","ice","plain"],
+ [1,"A turtle can take off its shell.",0,"A turtle's shell is part of its body, so it cannot take it off.","turtle","meadow"],
+ [1,"Bees are insects.",1,"Bees have six legs and three body parts, so they are insects.","bee","meadow"],
+ [2,"Dolphins are fish.",0,"Dolphins are mammals. They breathe air and feed milk to their babies.","fish","deep"],
+ [2,"Sound can travel through water.",1,"Whales sing to each other across the ocean, and sound travels well through water.","fish","deep"],
+ [2,"A cloud is made of tiny drops of water.",1,"A cloud is a huge group of tiny water drops or bits of ice floating high up.","cloud","sky"],
+ [2,"An apple floats in water.",1,"An apple has a lot of air inside it, so it floats.","apple","water"],
+ [2,"A seed can grow without any water.",0,"A seed needs water to wake up and start growing.","seed","plain"],
+ [3,"The Sun is bigger than Earth.",1,"The Sun is so big that about a million Earths could fit inside it.","sun","space"],
+ [3,"Bats cannot see.",0,"Bats can see. Many also use echoes of their own sounds to find food in the dark.","bird","night"],
+ [3,"Plants make their own food.",1,"Plants use sunlight, water and air to make their own food.","leaf","sky"],
+ [3,"Mount Everest is the tallest mountain above sea level.",1,"Mount Everest rises about 8,800 meters above sea level.","mountain","sky"],
+ [4,"Venus is the hottest planet.",1,"Venus is hotter than Mercury because its thick air traps heat.","planet","space"],
+ [4,"People use only ten percent of their brain.",0,"This is a myth. Brain scans show that we use all parts of our brain.","bolty","plain"],
+ [4,"Goldfish can only remember things for three seconds.",0,"Goldfish can remember things for months.","fish","water"],
+ [4,"A year on Mars is longer than a year on Earth.",1,"Mars is farther from the Sun, so one trip around it takes about 687 days.","planet","space"],
+ [5,"The number 1 is a prime number.",0,"A prime number has exactly two different factors. The number 1 has only one.","label","plain"],
+ [5,"The angles inside any triangle add up to 180 degrees.",1,"Every triangle has angles that add up to 180 degrees.","truss","plain"],
+ [5,"Half of a half is a quarter.",1,"Cut something in half, then cut one half in half, and each piece is one quarter.","label","plain"],
+ [5,"Zero is neither positive nor negative.",1,"Positive numbers are greater than zero and negative numbers are less than zero, so zero is neither.","label","plain"]
 ];
 var WHYQ=[
  [1,"Why do we wear coats in winter?",["To stay warm","To look funny","To hear better","To grow taller"],"A coat traps your body heat so you stay warm."],
@@ -2040,7 +2221,19 @@ var WHYQ=[
  [5,"Why does a cold glass of water get wet drops on the outside on a hot day?",["Water vapor in the air cools into drops","Water slowly leaks through the glass","The cold glass makes new water inside","The drink spills out when it gets cold"],"Water vapor in the warm air turns back into drops when it touches the cold glass."],
  [5,"Why does your heart beat faster after you run?",["Your muscles need more oxygen","Your heart is trying to get tired","Your blood gets thinner as you run","Your heart gets bigger as you run"],"Working muscles need more oxygen, so the heart pumps faster."],
  [5,"Why can we only see a rainbow when both sun and rain are there?",["Light has to shine through raindrops","Rain makes the Sun hotter and brighter","Clouds paint colors onto the sky","The Sun makes the water in air glow"],"Raindrops bend and split sunlight into colors."],
- [5,"Why do astronauts float inside a space station?",["They are falling around Earth with the station","There is no gravity at all in space","The space station is much lighter than air","Air inside the station pushes them up"],"They are in free fall around Earth, so they and the station fall together and seem to float."]
+ [5,"Why do astronauts float inside a space station?",["They are falling around Earth with the station","There is no gravity at all in space","The space station is much lighter than air","Air inside the station pushes them up"],"They are in free fall around Earth, so they and the station fall together and seem to float."],
+ [1,"Why does a bird have wings?",["To fly high up in the air","To keep its feet warm","To dig holes in the ground","To catch fish under the water"],"Most birds use their wings to fly."],
+ [1,"Why do we wear sunscreen?",["To keep the Sun from burning us","To help us swim much faster","To keep our hair from getting wet","To make our skin feel very cool"],"Sunscreen blocks some of the Sun's rays so they do not burn our skin."],
+ [1,"Why do plants have roots?",["To drink water and stay in place","To catch insects that fly by","To keep the sun off their leaves","To make sounds when it is windy"],"Roots soak up water and hold the plant in the soil."],
+ [2,"Why does a helium balloon float up?",["Helium is lighter than the air","Helium is a lot hotter than air","Helium is pulled up by the Sun","Helium is attracted to the sky"],"Helium is lighter than the air around it, so the air pushes the balloon up."],
+ [2,"Why can we see ourselves in a mirror?",["Light bounces off the mirror to our eyes","The mirror takes a very quick photograph","The glass keeps a copy of our faces","A tiny twin lives behind the glass"],"A smooth mirror bounces light back to our eyes, so we see ourselves."],
+ [2,"Why does a metal spoon in hot soup get hot?",["Heat moves from the soup to the spoon","The metal makes its own heat inside","Metal is always warm on the inside","Steam turns into metal on the spoon"],"Heat travels from the hot soup into the metal spoon."],
+ [3,"Why does the ocean have waves?",["Wind blows across the water","Fish swim near the surface","The Moon blows on the sea","The sand moves beneath it"],"Wind blowing over the water pushes it into waves."],
+ [3,"Why do we have two eyes?",["They help us judge how far things are","One eye is kept as a spare for later","They make everything look twice as big","They let us see well in total darkness"],"Two eyes give us two slightly different views, which helps us judge distance."],
+ [3,"Why do some animals hibernate in winter?",["Food is scarce, so they save energy","They are too sleepy after summer fun","Snow makes them forget how to walk","Their eyes cannot open in the cold"],"When food is hard to find, a long sleep saves energy until spring."],
+ [4,"Why does the Moon have so many craters?",["Space rocks hit it and nothing wears them away","Giant storms of hail dug holes in its surface","Bubbles of hot lava popped across its surface","Ancient Moon creatures dug deep pits long ago"],"Space rocks crash into the Moon, and with no air or weather, the craters stay."],
+ [4,"Why is the sky dark at night?",["Our side of Earth faces away from the Sun","The Sun is switched off until the morning","The Moon hides the Sun's light every night","Thick clouds always cover the sky at night"],"Earth spins, so at night our side faces away from the Sun."],
+ [5,"Why do astronauts wear space suits?",["Space has no air and wild temperatures","The suits help them float away more slowly","Space is full of tiny insects that bite","Starlight is so bright it can sting skin"],"A space suit gives astronauts air to breathe and protects them from extreme heat and cold."]
 ];
 
 function interestTags(){
